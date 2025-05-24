@@ -1,0 +1,218 @@
+[
+  {
+    "type": "Événement politique",
+    "start_date": null,
+    "end_date": "1914-08-02 00:00:00",
+    "description": "Ordre français de maintenir les troupes à au moins dix kilomètres de la frontière pour éviter tout incident pouvant servir de prétexte aux Allemands.",
+    "titre": "Ordre français de recul des troupes frontalières (10 km)",
+    "categorie": "Ordre militaire stratégique",
+    "document_source": null
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-02 00:00:00",
+    "end_date": null,
+    "description": "Nouvelle instruction prescrivant de laisser aux Allemands l'entière responsabilité des hostilités et de se borner à repousser toute attaque d'une troupe entrée sur le territoire français.",
+    "titre": "Instruction française sur la riposte et la responsabilité allemande",
+    "categorie": "Ordre militaire stratégique",
+    "document_source": "Note officielle du 24 mars 1915, 127"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-02 00:00:00",
+    "end_date": null,
+    "description": "Le ministre de la Guerre adressait au commandant de la 1ère région (Lille) des recommandations spéciales pour éviter tout incident sur la frontière franco-belge, exigeant que les troupes ne s'en approchent pas à moins de deux kilomètres et que les douaniers et forestiers évitent tout incident.",
+    "titre": "Recommandations du ministre de la Guerre pour la frontière franco-belge",
+    "categorie": "Ordre militaire stratégique",
+    "document_source": "lettre du ministre de la Guerre au ministre des Affaires étrangères, 16 février 1915, 138"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-03 00:00:00",
+    "end_date": null,
+    "description": "Les troupes de couverture recevaient de nouveaux ordres confirmant et précisant ceux du 2 août, insistant sur la nécessité de laisser aux Allemands l'entière responsabilité des hostilités et de se borner à repousser leurs attaques.",
+    "titre": "Confirmation des ordres aux troupes de couverture françaises",
+    "categorie": "Ordre militaire stratégique",
+    "document_source": null
+  },
+  {
+    "type": "Événement militaire",
+    "start_date": "1914-08-04 00:00:00",
+    "end_date": null,
+    "localisation": "Belgique",
+    "type": "Invasion",
+    "commenditaire": "Allemagne",
+    "éxécutant": "Armée allemande",
+    "ordre": "Invasion de la Belgique",
+    "cible": "Belgique",
+    "résultat": "Début de l'invasion de la Belgique",
+    "description": "Les forces allemandes pénètrent en Belgique.",
+    "title": "Début de l'invasion allemande de la Belgique"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-04 00:00:00",
+    "end_date": "1914-08-05 00:00:00",
+    "description": "Recommandations adressées aux troupes françaises à la frontière interdisant rigoureusement de pénétrer, même par des patrouilles ou des aviateurs, sur le territoire belge pour ne pas violer la neutralité belge.",
+    "titre": "Interdiction française de pénétrer en territoire belge",
+    "categorie": "Ordre militaire stratégique",
+    "document_source": null
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-05 00:00:00",
+    "end_date": null,
+    "description": "Sur demande du gouvernement belge, la défense de pénétrer sur le territoire belge pour les avions, dirigeables et reconnaissances françaises est levée.",
+    "titre": "Levée de l'interdiction française de survoler la Belgique",
+    "categorie": "Ordre militaire stratégique",
+    "document_source": "Note du 24 mars 1915, F. Passelecq, 127"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-03 01:30:00",
+    "end_date": null,
+    "description": "Le ministre d'Allemagne à Bruxelles prétend que des dirigeables français ont jeté des bombes et qu'une patrouille de cavalerie est entrée en territoire allemand, des allégations qui étaient fausses.",
+    "titre": "Fausses allégations allemandes d'incursions françaises en Belgique",
+    "categorie": "Propagande diplomatique",
+    "document_source": "Note du 3 août, Livre gris belge, nº 21"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-03 02:00:00",
+    "end_date": null,
+    "description": "Le Norddeutsche Allgemeine Zeitung allègue faussement que, dès le 24 juillet, des troupes françaises en armes avaient pénétré en territoire belge, avec de faux témoignages allemands.",
+    "titre": "Fausses allégations de la Norddeutsche Allgemeine Zeitung sur la violation belge",
+    "categorie": "Propagande médiatique",
+    "document_source": "2º Livre gris belge, nº 116, 117, 118"
+  },
+  {
+    "type": "Mouvement de troupes",
+    "start_date": "1914-07-25 00:00:00",
+    "end_date": null,
+    "description": "Six corps d'armée allemands sont positionnés en face de la frontière française: XIV° (Carlsruhe), XV° (Strasbourg), XXI° (Sarrebruck), XVI° (Metz) directement au contact; II° corps bavarois (Wurtzbourg) et VIII° corps (Coblentz) à proximité.",
+    "title": "Positionnement des corps d'armée allemands face à la France",
+    "type de mouvement": "Déploiement statique",
+    "protagoniste": "Armée allemande",
+    "position de départ": null,
+    "arrivée": "Frontière franco-allemande"
+  },
+  {
+    "type": "Événement militaire",
+    "start_date": "1914-07-25 00:00:00",
+    "end_date": null,
+    "localisation": "Allemagne",
+    "type": "Mobilisation",
+    "commenditaire": "Allemagne",
+    "éxécutant": "Armée allemande",
+    "ordre": "Préparations à la mobilisation",
+    "cible": null,
+    "résultat": "Début des mesures de mobilisation",
+    "description": "Les premières mesures allemandes en vue d'une mobilisation paraissent avoir été prises au matin du 25 juillet, sinon à une date antérieure.",
+    "title": "Début des premières mesures de mobilisation allemande"
+  },
+  {
+    "type": "Mouvement de troupes",
+    "start_date": "1914-07-27 00:00:00",
+    "end_date": null,
+    "description": "Les troupes de couverture allemandes ont été mises en place.",
+    "title": "Déploiement des troupes de couverture allemandes",
+    "type de mouvement": "Déploiement",
+    "protagoniste": "Troupes de couverture allemandes",
+    "position de départ": null,
+    "arrivée": "Frontière"
+  },
+  {
+    "type": "Mouvement de troupes",
+    "start_date": "1914-07-28 00:00:00",
+    "end_date": null,
+    "description": "Les éléments allemands éloignés de la frontière en auraient été rapprochés.",
+    "title": "Rapprochement des troupes allemandes de la frontière",
+    "type de mouvement": "Déplacement",
+    "protagoniste": "Troupes allemandes",
+    "position de départ": "Intérieur de l'Allemagne",
+    "arrivée": "Frontière"
+  },
+  {
+    "type": "Événement militaire",
+    "start_date": "1914-07-28 00:00:00",
+    "end_date": "1914-07-30 23:59:59",
+    "localisation": "Allemagne",
+    "type": "Renforcement d'effectifs",
+    "commenditaire": "Allemagne",
+    "éxécutant": "Armée allemande",
+    "ordre": "Appel de réservistes",
+    "cible": "Réservistes",
+    "résultat": "Effectifs des troupes de couverture complétés",
+    "description": "Les effectifs des troupes de couverture allemandes ont été complétés entre le 28 et le 30 juillet par l'appel individuel de réservistes, un minimum de 125 000 hommes.",
+    "title": "Appel de réservistes pour les troupes de couverture allemandes"
+  },
+  {
+    "type": "Mouvement de troupes",
+    "start_date": "1914-07-25 00:00:00",
+    "end_date": "1914-07-30 00:00:00",
+    "description": "M. Viviani rapporte que les troupes allemandes en garnison à Metz avaient été poussées jusqu'à la frontière et renforcées d'éléments venus par voies ferrées de l'intérieur, de Trèves ou de Cologne.",
+    "title": "Déplacement et renforcement des troupes allemandes vers la frontière",
+    "type de mouvement": "Déplacement et Renforcement",
+    "protagoniste": "Troupes allemandes",
+    "position de départ": "Metz, Trèves, Cologne",
+    "arrivée": "Frontière",
+    "document_source": "Livre jaune, nº 106, M. Viviani à M. Paul Cambon, 30 juillet 1914"
+  },
+  {
+    "type": "Événement militaire",
+    "start_date": "1914-07-25 00:00:00",
+    "end_date": null,
+    "localisation": "Allemagne",
+    "type": "Fortification",
+    "commenditaire": "Allemagne",
+    "éxécutant": "Armée allemande",
+    "ordre": "Armement des places",
+    "cible": "Places menacées",
+    "résultat": "Places menacées armées",
+    "description": "L'armement des places allemandes menacées a commencé le 25 juillet.",
+    "title": "Début de l'armement des places allemandes menacées"
+  },
+  {
+    "type": "Mouvement de troupes",
+    "start_date": "1914-07-27 00:00:00",
+    "end_date": null,
+    "description": "Les avant-postes des troupes de couverture allemandes sont positionnés sur les bornes-frontière.",
+    "title": "Positionnement des avant-postes allemands aux bornes-frontière",
+    "type de mouvement": "Positionnement",
+    "protagoniste": "Troupes de couverture allemandes",
+    "position de départ": null,
+    "arrivée": "Bornes-frontière"
+  },
+  {
+    "type": "Événement militaire",
+    "start_date": "1914-07-29 00:00:00",
+    "end_date": null,
+    "localisation": "Territoire français",
+    "type": "Violation de frontière",
+    "commenditaire": "Allemagne",
+    "éxécutant": "Patrouilles allemandes",
+    "ordre": "Incursion en territoire français",
+    "cible": "Territoire français",
+    "résultat": "Incursions de patrouilles allemandes",
+    "description": "Dès le 29 juillet, des patrouilles allemandes sont signalées entrant en territoire français.",
+    "title": "Incursions de patrouilles allemandes en territoire français"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-07-29 00:00:00",
+    "end_date": null,
+    "description": "L'Allemagne formule des plaintes contre les préparatifs français, malgré ses propres violations de frontière en cours.",
+    "titre": "Plaintes allemandes contre les préparatifs français",
+    "categorie": "Diplomatie/Propagande",
+    "document_source": "Livre blanc, annexe 17, le chancelier a l'ambassadeur d'Alle.magne à Paris, 29 juillet"
+  },
+  {
+    "type": "Événement politique",
+    "start_date": "1914-08-02 15:15:00",
+    "end_date": null,
+    "description": "Un télégramme absolument faux de Berlin annonce qu'un aviateur français a bombardé Nuremberg le dimanche matin.",
+    "titre": "Faux télégramme allemand sur le bombardement de Nuremberg par un aviateur français",
+    "categorie": "Propagande/Casus belli",
+    "document_source": "la grande guerre. Recueil des communiqués officiels, série 1, 28"
+  }
+]
