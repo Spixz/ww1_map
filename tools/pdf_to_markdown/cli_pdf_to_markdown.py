@@ -71,4 +71,5 @@ def main():
     TmpDir.dispose()
 
 
-main()
+if __name__ == "__main__":
+    main()

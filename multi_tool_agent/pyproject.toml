@@ -1,0 +1,20 @@
+[project]
+name = "multi-tool-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Cyril Mammar", email = "mammar.cyril@epitech.eu" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "google-adk==1.0.0",
+    "pytest>=8.3.5",
+]
+
+[project.scripts]
+multi-tool-agent = "multi_tool_agent:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

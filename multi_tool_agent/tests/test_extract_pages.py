@@ -1,11 +1,10 @@
-
 import os
 import tempfile
 import json
-from events_extractor_agent.events_tools import get_document_page
 
-
+from multi_tool_agent.events_extractor_agent.events_tools import get_document_page
 from config import SOURCE_DOC
+
 
 def set_source_doc(path: str):
     global SOURCE_DOC
@@ -34,6 +33,7 @@ def test_valid_page_range():
     set_source_doc(path=path)
 
     result = get_document_page("6-7")
+    print(result)
     parsed = json.loads(result)
 
     assert parsed["status"] == "success"
@@ -42,6 +42,9 @@ def test_valid_page_range():
     assert "page 8 content" not in parsed["text"]
     os.remove(path)
 
+
+if __name__ == "__main__":
+    test_valid_page_range()
 
 # def test_single_page():
 #     content = """
