@@ -51,9 +51,8 @@ def pdfToMarkdown(
 
 def main():
     parser = argparse.ArgumentParser(
-        prog="ProgramName",
-        description="What the program does",
-        epilog="Text at the bottom of help",
+        prog="PdfToMarkdown",
+        description="Convert a pdf containing only images to a markdown file using gemini",
     )
     parser.add_argument("pdf_input_file", help="Pdf to extract")
     parser.add_argument("md_output_file", help="Markdown output file")
