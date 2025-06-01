@@ -8,7 +8,7 @@ from utils.tempdir import TmpDir
 from utils.file_reader import FileReader
 from utils.pdf_to_images import pdfToImages
 
-from config import GEMINI_API_KEY
+from config import GEMINI_API_KEY, LESS_ADVANDED_MODEL
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -18,7 +18,7 @@ def geminiImageToMarkdown(image_path: str):
     file = client.files.upload(file=image_path)
 
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model=LESS_ADVANDED_MODEL,
         contents=[file],
         config=types.GenerateContentConfig(
             system_instruction=prompt,

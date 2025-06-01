@@ -1,6 +1,7 @@
 APP_NAME="map_creator"
 USER_ID="cyril_dev"
 
+DATABASE_NAME = "ww1_france"
 
-
-GEMINI_2_FLASH = "gemini-2.0-flash"
+ADVANCED_MODEL = "gemini-2.5-flash-preview-05-20"
+LESS_ADVANDED_MODEL = "gemoni-2.0-flash"

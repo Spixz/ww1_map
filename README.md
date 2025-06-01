@@ -1,0 +1,1 @@
+si changement de taille de pages sélectionnés modifier le prompt du manager et le max_interation (total page / 2)
