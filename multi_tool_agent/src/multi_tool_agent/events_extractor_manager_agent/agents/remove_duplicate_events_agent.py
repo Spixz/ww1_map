@@ -1,6 +1,7 @@
 from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
 from google.adk.tools import ToolContext, agent_tool
 from config import ADVANCED_MODEL
+from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
 
 
 remove_duplicate_events_agent = LlmAgent(
@@ -22,4 +23,5 @@ remove_duplicate_events_agent = LlmAgent(
     - Laisse la main au tool suivant.
 """,
     description="Fusionne les événements similaires de deux passages consécutifs",
+    before_model_callback=calculate_req_size
 )

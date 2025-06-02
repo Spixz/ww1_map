@@ -5,7 +5,11 @@ from config import ADVANCED_MODEL
 from multi_tool_agent.events_extractor_manager_agent.tools.get_document_page import (
     get_document_page,
 )
-from multi_tool_agent.events_extractor_manager_agent.tools.str_date_to_datetime import str_date_to_datetime
+from multi_tool_agent.events_extractor_manager_agent.tools.str_date_to_datetime import (
+    str_date_to_datetime,
+)
+from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
+
 
 event_extractor_agent_tool = LlmAgent(
     name="EventExtractorAgent",
@@ -81,4 +85,5 @@ Les événements militaire:
     description="Extraits les événements militaire du document",
     output_key="extracted_events_agent_tool_output",
     tools=[get_document_page],
+    before_model_callback=calculate_req_size,
 )

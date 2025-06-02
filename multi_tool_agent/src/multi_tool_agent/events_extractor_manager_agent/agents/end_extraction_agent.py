@@ -7,6 +7,7 @@ from multi_tool_agent.events_extractor_manager_agent.tools.store_event_in_db imp
 )
 from multi_tool_agent.events_extractor_manager_agent.tools.exit_loop import exit_loop
 from config import ADVANCED_MODEL
+from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
 
 
 end_extraction_agent = LlmAgent(
@@ -18,4 +19,5 @@ end_extraction_agent = LlmAgent(
 """,
     description="Met fin à l'exraction des donnés si le document a été entièrement parcouru.",
     tools=[exit_loop],
+    before_model_callback=calculate_req_size,
 )

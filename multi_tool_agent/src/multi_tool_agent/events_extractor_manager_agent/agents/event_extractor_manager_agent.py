@@ -5,9 +5,10 @@ from multi_tool_agent.events_extractor_manager_agent.agents.event_extractor_agen
     event_extractor_agent_tool,
 )
 from config import ADVANCED_MODEL
+from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
 
 event_extractor_manager_agent = LlmAgent(
-    name="EventExtractorAgent",
+    name="EventExtractorAgentManager",
     model=ADVANCED_MODEL,
     description="Extraits les événements",
     instruction="""
@@ -46,4 +47,5 @@ Concentre-toi sur l’exhaustivité et la rigueur historique.
     tools=[
         agent_tool.AgentTool(agent=event_extractor_agent_tool, skip_summarization=True),
     ],
+    before_model_callback=calculate_req_size
 )

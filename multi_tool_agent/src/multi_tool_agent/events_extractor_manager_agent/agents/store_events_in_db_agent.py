@@ -5,7 +5,7 @@ from multi_tool_agent.events_extractor_manager_agent.tools.store_event_in_db imp
     store_events_in_db,
 )
 from config import ADVANCED_MODEL
-
+from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
 
 
 store_events_in_db_agent = LlmAgent(
@@ -26,4 +26,5 @@ store_events_in_db_agent = LlmAgent(
     description="Stock en base de données les événements contenu dans `{extracted_events?}`",
     tools=[store_events_in_db],
     output_key="store_events_in_db_output",
+    before_model_callback=calculate_req_size
 )
