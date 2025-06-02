@@ -26,13 +26,13 @@ def display_context_size(contents, title: str):
 def calculate_req_size(
     callback_context: CallbackContext, llm_request: LlmRequest
 ) -> Optional[LlmResponse]:
-    display_context_size(llm_request.contents, "🧠 Avant réduction du contexte")
+    # display_context_size(llm_request.contents, "🧠 Avant réduction du contexte")
 
     context_limit = 8
     if llm_request.contents and len(llm_request.contents) >= context_limit:
-        print("CONDITION FONCTION")
+        # print("CONDITION FONCTION")
         selected_req = llm_request.contents[-context_limit]
-        print(f"stop at {selected_req}")
+        # print(f"stop at {selected_req}")
         while (
             selected_req.role == "user"  # ! function reponse
             and selected_req.parts
@@ -47,11 +47,11 @@ def calculate_req_size(
                 break
             context_limit += 1
             selected_req = llm_request.contents[-context_limit]
-            print(f"context limit + 1 = {context_limit}")
-            print(f"recuperer : ({selected_req.role}) {selected_req.parts}")
+            # print(f"context limit + 1 = {context_limit}")
+            # print(f"recuperer : ({selected_req.role}) {selected_req.parts}")
             # recupe le model function call + le message ou la fonction call precedan la function call
         llm_request.contents = llm_request.contents[-context_limit:]
 
-    display_context_size(llm_request.contents, "🧠 Après réduction du contexte")
+    # display_context_size(llm_request.contents, "🧠 Après réduction du contexte")
 
     return None

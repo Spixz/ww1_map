@@ -51,6 +51,12 @@ async def main():
         help="Id d'une session EXISTANTE afin de reprendre la conversation",
         default=None,
     )
+    parser.add_argument(
+        "-edb",
+        "--events-db-path",
+        help="Fichier dans lequelle sont stockés les events au format json.",
+        default="events.json",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", default=False)
     args = parser.parse_args()
 
@@ -107,6 +113,7 @@ async def main():
                 "total_doc_pages": total_doc_pages,
                 "page_interval": "1-3",
                 "extracted_events": [],
+                "events_db_path": args.events_db_path,
             },
         )
 

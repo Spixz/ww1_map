@@ -31,8 +31,9 @@ def store_events_in_db(events: list[dict], tool_context: ToolContext) -> str:
         # database = client["ww1-france"]
         # collection = database["events"]
         # collection.insert_many(events)
+        events_storage_path = tool_context.state.get("events_db_path", "events.json")
         db = TinyDB(
-            "tiny-db-events-h7.json",
+            events_storage_path,
             storage=lambda path: JSONStorage(path, encoding="utf-8"),
         )
         db.insert_multiple(events)
