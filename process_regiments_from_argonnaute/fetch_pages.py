@@ -32,9 +32,7 @@ def load_historique(path: Path) -> List[RegimentInput]:
     return [RegimentInput(**item) for item in raw]
 
 
-# return une liste de tout les medis presnet dans requete. l'url d'origne quelque soit
-# le format de ficheir
-def get_datas(ark_name: str, start: int, end: int, lot: int) -> list | None:
+def get_unit_history(ark_name: str, start: int, end: int, lot: int) -> list | None:
     base_api = "https://argonnaute.parisnanterre.fr/visualizer/api"
     params = {"arkName": ark_name, "start": start, "end": end, "group": lot}
     response = requests.get(base_api, params=params)
@@ -53,20 +51,18 @@ def get_datas(ark_name: str, start: int, end: int, lot: int) -> list | None:
 
 def fetch_medias(ark_name: str, nb_medias: int) -> List[str]:
     pdf = []
-    pages = get_datas(ark_name=ark_name, start=0, end=nb_medias - 2, lot=0)
+    pages = get_unit_history(ark_name=ark_name, start=0, end=nb_medias - 2, lot=0)
     if pages is not None:
-        pdf = get_datas(ark_name=ark_name, start=0, end=0, lot=1)
+        pdf = get_unit_history(ark_name=ark_name, start=0, end=0, lot=1)
     if pages is None:
-        pages = get_datas(ark_name=ark_name, start=0, end=nb_medias - 2, lot=1)
-        pdf = get_datas(ark_name=ark_name, start=0, end=nb_medias - 2, lot=0)
+        pages = get_unit_history(ark_name=ark_name, start=0, end=nb_medias - 2, lot=1)
+        pdf = get_unit_history(ark_name=ark_name, start=0, end=nb_medias - 2, lot=0)
     return Medias(pages=pages, pdf=pdf[0] if pdf else None)
 
 
 def main():
-    # input_path = Path("regiments_list.json")
-    # output_path = Path("regiments_complet.json")
     input_path = Path("regiments_list.json")
-    output_path = Path("regiments_complet_medias.json")
+    output_path = Path("regiments_complet.json")
     all_results: List[RegimentOutput] = []
 
     regiments_in = load_historique(input_path)
@@ -76,7 +72,6 @@ def main():
             f"[{idx}/{len(regiments_in)}] Traite : {regiment.title} (ark_name={regiment.ark_name}, nb_medias={regiment.nb_medias})"
         )
         medias = fetch_medias(regiment.ark_name, regiment.nb_medias)
-        # print(medias)
 
         all_results.append(
             RegimentOutput(
