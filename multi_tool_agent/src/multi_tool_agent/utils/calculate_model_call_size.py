@@ -8,7 +8,7 @@ def display_context_size(contents, title: str):
     total_text = ""
     if contents:
         for index, content in enumerate(contents):
-            print(f"{index} {content.role} - {content.parts}")
+            # print(f"{index} {content.role} - {content.parts}")
             if content.parts:
                 for part in content.parts:
                     if part.text:

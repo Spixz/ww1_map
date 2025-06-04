@@ -128,10 +128,11 @@ async def main():
         role="user",
         parts=[Part(text=user_query)],
     )
-    events = runner.run(user_id=USER_ID, session_id=session.id, new_message=content)
+    
+    events = runner.run_async (user_id=USER_ID, session_id=session.id, new_message=content)
     # NOTE: This sync interface is only for local testing and convenience purpose. Consider using run_async for production usage.
 
-    for event in events:
+    async for event in events:
         print(f"Event from: {event.author}")
         # agent's complete output for a turn. Filtre les étapes intermédiaires
         # (les appels aux tools, les updates de state)
