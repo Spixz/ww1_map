@@ -1,11 +1,12 @@
 import re
 
+
 def extract_pages(content: str, pattern: str) -> str | None:
     match = re.search(pattern, content, re.DOTALL)
     return match.group(0) if match else None
 
 
-def get_document_page(file_path: str, page_interval: str) -> str:
+def get_document_page(file_path: str, start_at: int, end_at: int = None) -> str:
     """Récupère dans le document les pages comprises dans l'intervalle.
 
     Args:
@@ -16,20 +17,16 @@ def get_document_page(file_path: str, page_interval: str) -> str:
         En cas d'erreur return "error"
     """
     try:
-        page_indexs: list[int] = [int(nb) for nb in page_interval.split("-")]
-        nb_index_given = len(page_indexs)
-        if nb_index_given == 0:
-            return "error"
-        start_at: int = page_indexs[0]
-        end_at: int = start_at + 1 if nb_index_given == 1 else page_indexs[1] + 1
-        expression = rf"<!-- page: {start_at} -->.*?(?=<!-- page: {end_at} -->|$)"
+        end_at_calculated = start_at + 1 if end_at is None else end_at + 1
+        expression = (
+            rf"<!-- page: {start_at} -->.*?(?=<!-- page: {end_at_calculated} -->|$)"
+        )
 
         with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
             extracted_pages = extract_pages(content=content, pattern=expression)
         if extracted_pages is None or (
-            nb_index_given == 2
-            and f"<!-- page: {page_indexs[1]} -->" not in extracted_pages
+            end_at is not None and f"<!-- page: {end_at} -->" not in extracted_pages
         ):
             return "error"
         return extracted_pages

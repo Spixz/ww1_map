@@ -4,6 +4,7 @@ import sys
 from dotenv import load_dotenv
 from utils import FileReader  # vient de tools/utils/src/utils/__init__.py
 
+
 def get_last_page_number(text: str):
     matches = re.findall(r"<!-- page: (\d+) -->", text)
     return int(matches[-1]) if matches else 0

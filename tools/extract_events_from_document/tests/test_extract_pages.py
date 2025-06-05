@@ -2,7 +2,7 @@ import os
 import tempfile
 import json
 
-from multi_tool_agent.events_extractor_agent.events_tools import get_document_page
+from extract_events_from_document.get_document_page import get_document_page
 
 
 def create_temp_file(content: str) -> str:
@@ -25,7 +25,7 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "6")
+    result = get_document_page(temp_file_path, start_at=6)
     print(result)
 
     assert "error" not in result
@@ -43,7 +43,7 @@ Fin
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "6")
+    result = get_document_page(temp_file_path, start_at=6)
     print(result)
 
     assert "error" not in result
@@ -64,7 +64,7 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "6-7")
+    result = get_document_page(temp_file_path, start_at=6, end_at=7)
     print(result)
 
     assert "error" not in result
@@ -85,7 +85,7 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "6-8")
+    result = get_document_page(temp_file_path, start_at=6, end_at=8)
     print(result)
 
     assert "error" not in result
@@ -109,7 +109,7 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "4")
+    result = get_document_page(temp_file_path, start_at=4)
     print(result)
 
     assert "error" in result
@@ -129,7 +129,7 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "4-5")
+    result = get_document_page(temp_file_path, start_at=4, end_at=5)
     print(result)
 
     assert "error" in result
@@ -149,33 +149,33 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "7-9")
+    result = get_document_page(temp_file_path, start_at=7, end_at=9)
     print(result)
 
     assert "error" in result
     os.remove(temp_file_path)
 
 
-def test_empty_page_parameter():
-    content = """
-<!-- page: 5 -->
-Intro
-<!-- page: 6 -->
-Début
-<!-- page: 7 -->
-Fin
-<!-- page: 8 -->
-page 8 content
-"""
-    temp_file_path = create_temp_file(content)
+# def test_empty_page_parameter():
+#     content = """
+# <!-- page: 5 -->
+# Intro
+# <!-- page: 6 -->
+# Début
+# <!-- page: 7 -->
+# Fin
+# <!-- page: 8 -->
+# page 8 content
+# """
+#     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, "")
-    assert "error" in result
-    os.remove(temp_file_path)
+#     result = get_document_page(temp_file_path, "")
+#     assert "error" in result
+#     os.remove(temp_file_path)
 
 
 def test_unexisting_file():
-    result = get_document_page("", "5-6")
+    result = get_document_page("", start_at=5, end_at=6)
     assert "error" in result
 
 
