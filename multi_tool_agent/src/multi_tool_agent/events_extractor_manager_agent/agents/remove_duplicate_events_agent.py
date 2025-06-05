@@ -3,10 +3,31 @@ from google.adk.tools import ToolContext, agent_tool
 from config import ADVANCED_MODEL
 from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
 
+from google.adk.agents.callback_context import CallbackContext
+from google.genai.types import Content
+from typing import Optional
+
+# def _after_tool_callback(
+#     tool: BaseTool, args: dict[str, Any], tool_context: ToolContext, tool_response: dict
+# ) -> Optional[dict]:
+#     tool_context.state["extracted_events"] = []
+#     tool_context.state["remove_doublon_output"] = []
+
+
+def _before_agent_callback(callback_context: CallbackContext) -> Optional[Content]:
+    print("CONTENU DE EXTRACTED_EVENTS AVANT LA SUPPRESSION DES DOUBLONS")
+    print(callback_context.state.get("extracted_events"))
+    print(f"salut: {callback_context.state.get("message")}")
+    return None
+
+
 remove_duplicate_events_agent = LlmAgent(
     name="RemoveDuplicateEventAgent",
     model=ADVANCED_MODEL,
     instruction="""
+
+Ton objectif est de trouver les doublons présent dans `{extracted_events}`.
+**Tu retournera toujours la liste d'événements contenu dans `{extracted_events}`**
 
 1. **Déterminer la page cible**
    La page cible est **TOUJOURS** la première page de l’intervalle `{page_interval}`.
@@ -15,17 +36,17 @@ remove_duplicate_events_agent = LlmAgent(
    Extraire tous les événements dont `document_source_page` correspond à la page cible.
 
 3. **Si aucun événement n’est lié à cette page, laisser la main au tool suivant**  
-   → Fin du traitement.
+   → return OUTPUT = `{extracted_events}`
 
 4. **Recherche de doublons (sur les événements de la page cible)**  
    - Comparer ces événements entre eux (mêmes attributs essentiels : titre, date, lieu, etc.) afin d’identifier d’éventuels doublons.  
-   - **Si aucun doublon n’est trouvé**, laisser la main au tool suivant.
+   - **Si aucun doublon n’est trouvé**, return OUTPUT = `{extracted_events}`
 
 5. **Fusion des événements (sur les événements de la page cible)**  
    a. Retirer **tous les doublons identifiés** de la liste `{extracted_events}`.  
    b. Pour chaque groupe de doublons fusionnables, créer un **nouvel événement enrichi** (par ex. : combiner les descriptions, remplir les champs manquants).  
    c. Ajouter ces nouveaux événements fusionnés à `{extracted_events}`.  
-   d. Laisser la main au tool suivant.
+   d. return le contenu de `{extracted_events}`
 
 ---
 
@@ -88,7 +109,7 @@ remove_duplicate_events_agent = LlmAgent(
         {title: "préparation des défenses", document_source_page: 5},
     ]
     
-    d. Passage au tool suivant
+    d. return OUTPUT = le contenu de `{extracted_events}`
 
 ⸻
 
@@ -110,7 +131,7 @@ remove_duplicate_events_agent = LlmAgent(
 2. **Récupération des événements de la page cible**  
 []
 
-3. **Aucun événement trouvé : passage immédiat au tool suivant.**
+3. **Aucun événement trouvé **: return OUTPUT = le contenu de `{extracted_events}`
 
 
 
@@ -142,11 +163,12 @@ remove_duplicate_events_agent = LlmAgent(
 4. **Recherche de doublons (parmi ces 2 événements)**  
 - Aucun doublon détecté
 
-5. **Pas de fusion nécessaire : passage au tool suivant.**
+5. **Pas de fusion nécessaire** : return OUTPUT = le contenu de `{extracted_events}`
 
 """,
     description="Recherche les doublons d'une page cible dans `{extracted_events}`, puis les fusionne.",
-    before_model_callback=calculate_req_size,
+    before_agent_callback=_before_agent_callback,
+    output_key="remove_doublon_output",
 )
 
 
@@ -155,20 +177,29 @@ remove_duplicate_events_agent = LlmAgent(
 #     model=ADVANCED_MODEL,
 #     instruction="""
 
-# 1 - Déterminer la page cible * : la page cible est la première page de l'intervalle`{page_interval}`.
-# 2 - Récupère les événements de `{extracted_events}` ayant pour source cette page.
-# 3 - **Si aucun événements n'est lié à cette page, laisse la main au tool suivant.**
+# 1. **Déterminer la page cible**
+#    La page cible est **TOUJOURS** la première page de l’intervalle `{page_interval}`.
 
-# **Sinon Fusion des événements:**
-# 4 - Retire c'est événements de la liste `{extracted_events}`.
-# 5 - Compare c'est événements entre eux (mêmes attributs essentiels : titre, date, lieu, etc.) afin de trouver des doublons s'il y en a.
-#     - Si aucun doublon n'est trouvé, réintégre c'est éléments à `{extracted_events}` et **laisse la main au tool suivant.**
+# 2. **Récupérer les événements de `{extracted_events}`**
+#    Extraire tous les événements dont `document_source_page` correspond à la page cible.
 
-#     - Si des doublons sont trouvés, fusionne les en un seul événements enrichissant les données (par exemple en combinant les descriptions ou en remplissant les champs manquants) si possible.
-#     - Ajoute cette nouvelle liste d'éléments fusionnés à `{extracted_events}`.
-#     - Laisse la main au tool suivant.
+# 3. **Si aucun événement n’est lié à cette page, laisser la main au tool suivant**
+#    → Fin du traitement.
 
-# ## Exemple 1 - événements similaires trouvés sur la page cible *:
+# 4. **Recherche de doublons (sur les événements de la page cible)**
+#    - Comparer ces événements entre eux (mêmes attributs essentiels : titre, date, lieu, etc.) afin d’identifier d’éventuels doublons.
+#    - **Si aucun doublon n’est trouvé**, laisser la main au tool suivant.
+
+# 5. **Fusion des événements (sur les événements de la page cible)**
+#    a. Retirer **tous les doublons identifiés** de la liste `{extracted_events}`.
+#    b. Pour chaque groupe de doublons fusionnables, créer un **nouvel événement enrichi** (par ex. : combiner les descriptions, remplir les champs manquants).
+#    c. Ajouter ces nouveaux événements fusionnés à `{extracted_events}`.
+#    d. Laisser la main au tool suivant.
+
+# ---
+
+# ## Exemple 1 – événements similaires trouvés sur la page cible
+
 # **Input :**
 # - `extracted_events` = [
 #     {title: "course à l'armement", document_source_page: 3},
@@ -178,38 +209,45 @@ remove_duplicate_events_agent = LlmAgent(
 #     {title: "bataille du lac de mercier", document_source_page: 4},
 #     {title: "repli stratégique", document_source_page: 4},
 #     {title: "attaque au gaz", document_source_page: 5},
-#     {title: "préparation des défenses", document_source_page: 5},
+#     {title: "préparation des défenses", document_source_page: 5}
 # ]
-# - `page_interval` = [4-5]
+# - `page_interval` = [4 – 5]
 
-# **Traitement**
-# 1 -  Déterminer la page cible * = 4
-# 2 - Récupération des événements de la page cible * =
+# **Traitement détaillé :**
+
+# 1. ** Déterminer la page cible 4**
+#     `page_interval` = [4 – 5] => page cible = 4
+# 2. **Récupération des événements de la page cible**
 # [
 #     {title: "bataille du lac", document_source_page: 4},
 #     {title: "repli stratégique vers le sud", document_source_page: 4},
 #     {title: "bataille du lac de mercier", document_source_page: 4},
 #     {title: "repli stratégique", document_source_page: 4},
 # ]
-# 3 - Événenements appartenant à la page 4 trouvés, poursuite du traitement.
-# 4 - Mise à jour de `extracted_events` :
-# `extracted_events` = [
-#     {title: "course à l'armement", document_source_page: 3},
-#     {title: "prise en étaux", document_source_page: 3},
-#     {title: "attaque au gaz", document_source_page: 5},
-#     {title: "préparation des défenses", document_source_page: 5},
-# ]
-# 5 - Recherche de doublons sur la page cible * :
+
+# 3. **Événements trouvés : on passe à l’étape suivante.**
+
+# 4. **Recherche de doublons (parmi ces 4 événements)**
+# - Doublons détectés :
 #     {title: "bataille du lac", document_source_page: 4} similaire à {title: "bataille du lac de mercier", document_source_page: 4},
 #     {title: "repli stratégique vers le sud", document_source_page: 4} similaire à {title: "repli stratégique", document_source_page: 4},
 
-#     - Fusion des éléments similaires:
+# 5. **Fusion des événements :**
+#     a. Retirer les 4 doublons de `extracted_events`
+#     `extracted_events` = [
+#         {title: "course à l'armement", document_source_page: 3},
+#         {title: "prise en étaux", document_source_page: 3},
+#         {title: "attaque au gaz", document_source_page: 5},
+#         {title: "préparation des défenses", document_source_page: 5},
+#     ]
+
+#     b. Fusion des éléments similaires :
 #     [
 #         {title: "repli stratégique vers le sud", document_source_page: 4},
 #         {title: "bataille du lac de mercier", document_source_page: 4}
 #     ]
 
-#     - Réinsertion des événements fusionnés dans `extracted_events`:
+#     c. Réinsertion des événements fusionnés dans `extracted_events`:
 #     [
 #         {title: "course à l'armement", document_source_page: 3},
 #         {title: "prise en étaux", document_source_page: 3},
@@ -218,48 +256,63 @@ remove_duplicate_events_agent = LlmAgent(
 #         {title: "attaque au gaz", document_source_page: 5},
 #         {title: "préparation des défenses", document_source_page: 5},
 #     ]
-#     Passage au tool suivant.
 
+#     d. Passage au tool suivant
 
-# ## Exemple 2 - aucun événements appartenant à la page cible * présent dans `{extracted_events}` :
+# ⸻
+
+# ## Exemple 2 – aucun événement appartenant à la page cible
+
 # **Input :**
 # - `extracted_events` = [
 #     {title: "course à l'armement", document_source_page: 3},
 #     {title: "prise en étaux", document_source_page: 3},
 #     {title: "attaque au gaz", document_source_page: 5},
-#     {title: "préparation des défenses", document_source_page: 5},
+#     {title: "préparation des défenses", document_source_page: 5}
 # ]
-# - `page_interval` = [4-5]
+# - `page_interval` = [4 – 5]
 
-# **Traitement**
-# 1 -  Déterminer la page cible * = 4
-# 2 - Récupération des événements de la page 4 = []
-# 3 - Aucun événement appartenant à la page cible * trouvé, passage à l'agent suivant.
+# **Traitement détaillé :**
+
+# 1. ** Déterminer la page cible **
+#     `page_interval` = [4 – 5] => page cible = 4
+# 2. **Récupération des événements de la page cible**
+# []
+
+# 3. **Aucun événement trouvé : passage immédiat au tool suivant.**
 
 
-# ## Exemple 3 - aucun événements similaires trouvés sur la page cible *:
+# ## Exemple 3 – aucun événement similaire trouvé
+
 # **Input :**
-# - `extracted_events` = [
-#     {title: "course à l'armement", document_source_page: 3},
-#     {title: "prise en étaux", document_source_page: 3},
-#     {title: "bataille du lac", document_source_page: 4},
-#     {title: "repli stratégique", document_source_page: 4},
-#     {title: "attaque au gaz", document_source_page: 5},
-#     {title: "préparation des défenses", document_source_page: 5},
+# - `extracted_events` =  [
+#     {title: "course à l'armement", document_source_page: 3}
+#     {title: "prise en étaux", document_source_page: 3}
+#     {title: "bataille du lac", document_source_page: 4}
+#     {title: "repli stratégique", document_source_page: 4}
+#     {title: "attaque au gaz", document_source_page: 5}
+#     {title: "préparation des défenses", document_source_page: 5}
 # ]
-# - `page_interval` = [4-5]
+# - `page_interval` = [4 – 5]
 
-# **Traitement**
-# 1 -  Déterminer la page cible * = 4
-# 2 - Récupération des événements de la page cible * =
+# **Traitement détaillé :**
+
+# 1. ** Déterminer la page cible **
+#     `page_interval` = [4 – 5] => page cible = 4
+# 2. **Récupération des événements de la page cible **
 # [
 #     {title: "bataille du lac", document_source_page: 4},
-#     {title: "repli stratégique vers le sud", document_source_page: 4},
+#     {title: "repli stratégique", document_source_page: 4},
 # ]
-# 3 - Événenements appartenant à la page 4 trouvés, poursuite du traitement.
 
+# 3. **Événements trouvés : on passe à l’étape suivante.**
+
+# 4. **Recherche de doublons (parmi ces 2 événements)**
+# - Aucun doublon détecté
+
+# 5. **Pas de fusion nécessaire : passage au tool suivant.**
 
 # """,
-#     description="Fusionne les événements similaires de deux passages consécutifs",
-#     before_model_callback=calculate_req_size
+#     description="Recherche les doublons d'une page cible dans `{extracted_events}`, puis les fusionne.",
+#     before_model_callback=calculate_req_size,
 # )
