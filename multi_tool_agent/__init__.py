@@ -111,10 +111,9 @@ async def main():
             state={
                 "source_doc": args.md_input_file,
                 "total_doc_pages": total_doc_pages,
-                "page_interval": "1-3",
+                "page_interval": "0-0",
                 "extracted_events": [],
                 "events_db_path": args.events_db_path,
-                "message": None,
             },
         )
 
