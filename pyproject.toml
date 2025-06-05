@@ -9,6 +9,6 @@ dependencies = []
 [tool.uv.workspace]
 members = [
     "tools/pdf_to_markdown",
-    "multi_tool_agent",
+    "tools/extract_events_from_document",
     "process_regiments_from_argonnaute",
 ]
