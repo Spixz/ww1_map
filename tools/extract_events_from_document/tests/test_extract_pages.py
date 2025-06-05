@@ -25,10 +25,10 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=6)
+    result = get_document_page(temp_file_path, total_pages=10, start_at=6)
     print(result)
 
-    assert "error" not in result
+    assert result is not None
     assert "<!-- page: 6 -->\nDébut" in result.strip()
     os.remove(temp_file_path)
 
@@ -43,10 +43,10 @@ Fin
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=6)
+    result = get_document_page(temp_file_path, total_pages=6, start_at=6)
     print(result)
 
-    assert "error" not in result
+    assert result is not None
     assert "<!-- page: 6 -->\nDébut\nFin" in result.strip()
     os.remove(temp_file_path)
 
@@ -64,10 +64,10 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=6, end_at=7)
+    result = get_document_page(temp_file_path, total_pages=10, start_at=6, end_at=7)
     print(result)
 
-    assert "error" not in result
+    assert result is not None
     assert "<!-- page: 6 -->\nDébut\n<!-- page: 7 -->\nFin" in result.strip()
     os.remove(temp_file_path)
 
@@ -85,10 +85,10 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=6, end_at=8)
+    result = get_document_page(temp_file_path, total_pages=10, start_at=6, end_at=8)
     print(result)
 
-    assert "error" not in result
+    assert result is not None
     assert (
         "<!-- page: 6 -->\nDébut\n<!-- page: 7 -->\nFin\n<!-- page: 8 -->\npage 8 content"
         in result.strip()
@@ -109,10 +109,10 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=4)
+    result = get_document_page(temp_file_path, total_pages=10, start_at=4)
     print(result)
 
-    assert "error" in result
+    assert result is None
     os.remove(temp_file_path)
 
 
@@ -129,14 +129,13 @@ page 8 content
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=4, end_at=5)
+    result = get_document_page(temp_file_path, total_pages=10, start_at=4, end_at=5)
     print(result)
 
-    assert "error" in result
+    assert result is None
     os.remove(temp_file_path)
 
-
-def test_page_not_found_interval_end():
+def test_end_on_last_page():
     content = """
 <!-- page: 5 -->
 Intro
@@ -146,38 +145,49 @@ Début
 Fin
 <!-- page: 8 -->
 page 8 content
+<!-- page: 9 -->
+page 9 content
+<!-- page: 10 -->
+page 10 content (last page)
 """
     temp_file_path = create_temp_file(content)
 
-    result = get_document_page(temp_file_path, start_at=7, end_at=9)
+    result = get_document_page(temp_file_path, total_pages=10, start_at=6, end_at=10)
     print(result)
 
-    assert "error" in result
+    assert result is not None
+    assert "page 10 content (last page)" in result.strip()
+    os.remove(temp_file_path)
+
+def test_last_page_index_overflow():
+    content = """
+<!-- page: 5 -->
+Intro
+<!-- page: 6 -->
+Début
+<!-- page: 7 -->
+Fin
+<!-- page: 8 -->
+page 8 content
+<!-- page: 9 -->
+page 9 content
+<!-- page: 10 -->
+page 10 content (last page)
+"""
+    temp_file_path = create_temp_file(content)
+
+    result = get_document_page(temp_file_path, total_pages=10, start_at=6, end_at=11)
+    print(result)
+
+    assert result is not None
+    assert "page 10 content (last page)" in result.strip()
     os.remove(temp_file_path)
 
 
-# def test_empty_page_parameter():
-#     content = """
-# <!-- page: 5 -->
-# Intro
-# <!-- page: 6 -->
-# Début
-# <!-- page: 7 -->
-# Fin
-# <!-- page: 8 -->
-# page 8 content
-# """
-#     temp_file_path = create_temp_file(content)
-
-#     result = get_document_page(temp_file_path, "")
-#     assert "error" in result
-#     os.remove(temp_file_path)
-
-
 def test_unexisting_file():
-    result = get_document_page("", start_at=5, end_at=6)
-    assert "error" in result
+    result = get_document_page("", total_pages=10, start_at=5, end_at=6)
+    assert result is None
 
 
 if __name__ == "__main__":
-    test_select_only_one_page()
+    test_last_page_index_overflow()
