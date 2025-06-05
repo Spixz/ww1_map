@@ -13,11 +13,18 @@ dependencies = [
     "pymongo>=4.13.0",
     "pytest>=8.3.5",
     "tinydb>=4.8.2",
+    "utils"
 ]
 
 [project.scripts]
-extract-events-from-document = "extract_events_from_document:main"
+extract-events-from-document = "extract_events_from_document.main:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.uv.sources]
+utils = { workspace = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/extract_events_from_document"]

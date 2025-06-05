@@ -8,9 +8,10 @@ resolution-markers = [
 
 [manifest]
 members = [
-    "multi-tool-agent",
+    "extract-events-from-document",
     "pdf-to-markdown",
     "process-regiments-from-argonnaute",
+    "utils",
     "ww1-map",
 ]
 
@@ -219,6 +220,29 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/08/12/9c22a58c0b1e29271051222d8906257616da84135af9ed167c9e28f85cb3/docstring_parser-0.16.tar.gz", hash = "sha256:538beabd0af1e2db0146b6bd3caa526c35a34d61af9fd2887f3a8a27a739aa6e", size = 26565, upload-time = "2024-03-15T10:39:44.419Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d5/7c/e9fcff7623954d86bdc17782036cbf715ecab1bec4847c008557affe1ca8/docstring_parser-0.16-py3-none-any.whl", hash = "sha256:bf0a1387354d3691d102edef7ec124f219ef639982d096e26e3b60aeffa90637", size = 36533, upload-time = "2024-03-15T10:39:41.527Z" },
+]
+
+[[package]]
+name = "extract-events-from-document"
+version = "0.1.0"
+source = { editable = "tools/extract_events_from_document" }
+dependencies = [
+    { name = "dnspython" },
+    { name = "google-adk" },
+    { name = "pymongo" },
+    { name = "pytest" },
+    { name = "tinydb" },
+    { name = "utils" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "dnspython", specifier = ">=2.7.0" },
+    { name = "google-adk", specifier = "==1.1.1" },
+    { name = "pymongo", specifier = ">=4.13.0" },
+    { name = "pytest", specifier = ">=8.3.5" },
+    { name = "tinydb", specifier = ">=4.8.2" },
+    { name = "utils", editable = "tools/utils" },
 ]
 
 [[package]]
@@ -737,27 +761,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/e7/bc/54aec2c334698cc575ca3b3481eed627125fb66544152fa1af927b1a495c/mcp-1.9.1.tar.gz", hash = "sha256:19879cd6dde3d763297617242888c2f695a95dfa854386a6a68676a646ce75e4", size = 316247, upload-time = "2025-05-22T15:52:21.26Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a6/c0/4ac795585a22a0a2d09cd2b1187b0252d2afcdebd01e10a68bbac4d34890/mcp-1.9.1-py3-none-any.whl", hash = "sha256:2900ded8ffafc3c8a7bfcfe8bc5204037e988e753ec398f371663e6a06ecd9a9", size = 130261, upload-time = "2025-05-22T15:52:19.702Z" },
-]
-
-[[package]]
-name = "multi-tool-agent"
-version = "0.1.0"
-source = { editable = "multi_tool_agent" }
-dependencies = [
-    { name = "dnspython" },
-    { name = "google-adk" },
-    { name = "pymongo" },
-    { name = "pytest" },
-    { name = "tinydb" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "dnspython", specifier = ">=2.7.0" },
-    { name = "google-adk", specifier = "==1.1.1" },
-    { name = "pymongo", specifier = ">=4.13.0" },
-    { name = "pytest", specifier = ">=8.3.5" },
-    { name = "tinydb", specifier = ">=4.8.2" },
 ]
 
 [[package]]
@@ -1414,6 +1417,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/8a/78/16493d9c386d8e60e
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6b/11/cc635220681e93a0183390e26485430ca2c7b5f9d33b15c74c2861cb8091/urllib3-2.4.0-py3-none-any.whl", hash = "sha256:4e16665048960a0900c702d4a66415956a584919c03361cac9f1df5c5dd7e813", size = 128680, upload-time = "2025-04-10T15:23:37.377Z" },
 ]
+
+[[package]]
+name = "utils"
+version = "0.1.0"
+source = { editable = "tools/utils" }
 
 [[package]]
 name = "uvicorn"

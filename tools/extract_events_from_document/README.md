@@ -1,0 +1,1 @@
+`uv run extract-events-from-document tome_2.md`

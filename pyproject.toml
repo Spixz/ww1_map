@@ -11,4 +11,5 @@ members = [
     "tools/pdf_to_markdown",
     "tools/extract_events_from_document",
     "process_regiments_from_argonnaute",
+    "tools/utils",
 ]
