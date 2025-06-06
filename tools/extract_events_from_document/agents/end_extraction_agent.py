@@ -6,7 +6,7 @@ from multi_tool_agent.events_extractor_manager_agent.tools.store_event_in_db imp
     store_events_in_db,
 )
 from multi_tool_agent.events_extractor_manager_agent.tools.exit_loop import exit_loop
-from config import ADVANCED_MODEL
+from tools.extract_events_from_document.src.extract_events_from_document.config import ADVANCED_MODEL
 from multi_tool_agent.utils.calculate_model_call_size import calculate_req_size
 
 

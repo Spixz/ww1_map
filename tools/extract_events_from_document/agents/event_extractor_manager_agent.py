@@ -1,7 +1,7 @@
 from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
 from google.adk.tools import agent_tool, ToolContext
 
-from config import ADVANCED_MODEL
+from tools.extract_events_from_document.src.extract_events_from_document.config import ADVANCED_MODEL
 from multi_tool_agent.events_extractor_manager_agent.agents.event_extractor_agent_tool import (
     event_extractor_agent_tool,
 )
