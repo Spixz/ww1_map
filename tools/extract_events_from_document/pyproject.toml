@@ -13,7 +13,7 @@ dependencies = [
     "pymongo>=4.13.0",
     "pytest>=8.3.5",
     "tinydb>=4.8.2",
-    "utils"
+    "common"
 ]
 
 [project.scripts]
@@ -23,8 +23,9 @@ extract-events-from-document = "extract_events_from_document.main:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+#dis a uv d'aller chercher common en local par sur pypi
 [tool.uv.sources]
-utils = { workspace = true }
+common = { workspace = true }
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/extract_events_from_document"]

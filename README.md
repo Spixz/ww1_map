@@ -1,1 +1,4 @@
-si changement de taille de pages sélectionnés modifier le prompt du manager et le max_interation (total page / 2)
+```
+uv run extract-events-from-document xxx.md -ftp 11
+uv run pdf-to-markdown 
+```

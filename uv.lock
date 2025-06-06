@@ -8,10 +8,10 @@ resolution-markers = [
 
 [manifest]
 members = [
+    "common",
     "extract-events-from-document",
     "pdf-to-markdown",
     "process-regiments-from-argonnaute",
-    "utils",
     "ww1-map",
 ]
 
@@ -158,6 +158,11 @@ wheels = [
 ]
 
 [[package]]
+name = "common"
+version = "0.1.0"
+source = { editable = "tools/common" }
+
+[[package]]
 name = "cryptography"
 version = "45.0.3"
 source = { registry = "https://pypi.org/simple" }
@@ -227,22 +232,22 @@ name = "extract-events-from-document"
 version = "0.1.0"
 source = { editable = "tools/extract_events_from_document" }
 dependencies = [
+    { name = "common" },
     { name = "dnspython" },
     { name = "google-adk" },
     { name = "pymongo" },
     { name = "pytest" },
     { name = "tinydb" },
-    { name = "utils" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "common", editable = "tools/common" },
     { name = "dnspython", specifier = ">=2.7.0" },
     { name = "google-adk", specifier = "==1.1.1" },
     { name = "pymongo", specifier = ">=4.13.0" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "tinydb", specifier = ">=4.8.2" },
-    { name = "utils", editable = "tools/utils" },
 ]
 
 [[package]]
@@ -883,8 +888,9 @@ wheels = [
 [[package]]
 name = "pdf-to-markdown"
 version = "0.1.0"
-source = { virtual = "tools/pdf_to_markdown" }
+source = { editable = "tools/pdf_to_markdown" }
 dependencies = [
+    { name = "common" },
     { name = "google-adk" },
     { name = "pdf2image" },
     { name = "requests" },
@@ -892,6 +898,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "common", editable = "tools/common" },
     { name = "google-adk", specifier = "==1.1.1" },
     { name = "pdf2image", specifier = "==1.17.0" },
     { name = "requests", specifier = "==2.31.0" },
@@ -1417,11 +1424,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/8a/78/16493d9c386d8e60e
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6b/11/cc635220681e93a0183390e26485430ca2c7b5f9d33b15c74c2861cb8091/urllib3-2.4.0-py3-none-any.whl", hash = "sha256:4e16665048960a0900c702d4a66415956a584919c03361cac9f1df5c5dd7e813", size = 128680, upload-time = "2025-04-10T15:23:37.377Z" },
 ]
-
-[[package]]
-name = "utils"
-version = "0.1.0"
-source = { editable = "tools/utils" }
 
 [[package]]
 name = "uvicorn"

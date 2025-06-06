@@ -1,0 +1,1 @@
+from .cli_pdf_to_markdown import main

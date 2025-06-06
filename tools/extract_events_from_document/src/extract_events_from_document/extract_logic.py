@@ -9,7 +9,7 @@ from extract_events_from_document.prompts.extract_events_instruction import (
 from extract_events_from_document.prompts.remove_duplicate_events_instructions import (
     remove_duplicate_events_instructions,
 )
-from utils import FileReader  # vient de tools/utils/src/utils/__init__.py
+from common import FileReader  # vient de tools/utils/src/utils/__init__.py
 from json import loads
 from extract_events_from_document.get_document_page import get_document_page
 
@@ -32,68 +32,67 @@ class Interval:
     start_at: int
     end_at: int
 
+    @property
+    def containedNumber(self):
+        return list(range(self.start_at, self.end_at + 1))
+
     def __str__(self):
         return f"[{self.start_at}-{self.end_at}]"
 
 
-def storeEventsInDb(events):
+def storeEventsInDb(events: list[dict]):
     global all_events
     if events:
         all_events += events
+
+
+def getEventsFromPageInDb(selected_pages: list[int]):
+    global all_events
+    return [
+        event for event in all_events if event["document_source_page"] in selected_pages
+    ]
+
+
+def deleteEventsFromDb(events):
+    global all_events
+    all_events = [ev for ev in all_events if ev not in events]
 
 
 def printEvents(events):
     for i, event in enumerate(events, start=1):
         print(f"Événement {i}:")
         for key, value in event.items():
-            print(f"  {key}: {value}")
+            if key in ["document_source_page", "title"]:
+                print(f"  {key}: {value}")
         print()  # ligne vide entre chaque événement
 
 
-def extractEvents(file_path: str, total_pages: int) -> None:
+def extractEvents(file_path: str, total_pages: int, start_page: int = 1) -> None:
     pages_per_interval = 1
-    start_at = 1
-    events = []
+    start_at = start_page
     while start_at < total_pages:
         interval = Interval(start_at=start_at, end_at=start_at + pages_per_interval)
-        print(f"intevalle {interval}")
-        if events:
-            print("2nd partie")
-            page_content = get_document_page(
-                file_path, total_pages, interval.start_at, interval.end_at
-            )
-            print(page_content)
-            ex_events = extractTool(file_path, page_content)
-            events += ex_events
+        page_content = get_document_page(
+            file_path, total_pages, interval.start_at, interval.end_at
+        )
+        print(f"========INTERVALLE {interval}=========")
+        print(page_content)
+        ex_events = extractTool(file_path, page_content)
+        print("Événements trouvés:")
+        printEvents(ex_events)
 
-            print("Événements trouvés:")
-            printEvents(ex_events)
-            events_without_doublon = removeDoublonTool(
-                events, targeted_page=interval.start_at
-            )
-            if len(events) != len(events_without_doublon):
-                print("des doublons ont été trouvés et supprimé !!!!!!")
-                print("La version sans doublon :")
-                printEvents(events_without_doublon)
-            else:
-                print("PAs de doublons trouvés !!!!")
-            storeEventsInDb(events_without_doublon)
-            events = []
-        else:
-            print("1er partie")
-            page_content = get_document_page(
-                file_path, total_pages, interval.start_at, interval.end_at
-            )
-            print(page_content)
-            ex_events = extractTool(file_path, page_content)
-            events += ex_events
-
-            print("Événements trouvés:")
-            printEvents(ex_events)
-
-            if interval.end_at >= total_pages:  # pck on rentrera plus dans le while
-                storeEventsInDb(events)
-
+        old_events = getEventsFromPageInDb([interval.start_at])
+        print(f"ANCIENS EVENTS DE LA PAGE {interval.start_at} STOCKES EN DB")
+        printEvents(old_events)
+        deleteEventsFromDb(old_events)
+        final = ex_events + old_events
+        final = removeDoublonTool(final, interval.start_at)
+        print(f"EVENEMENTS SANS DOUBLONS QUI SERONT STOCKE POUR {interval}")
+        printEvents(final)
+        storeEventsInDb(final)
+        print("ALL EVENTS")
+        printEvents(all_events)
+        print("\n\n\n")
         start_at = interval.end_at
 
     print("All Events Final !!!!!")
