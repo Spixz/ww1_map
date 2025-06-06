@@ -62,8 +62,8 @@ def printEvents(events):
     for i, event in enumerate(events, start=1):
         print(f"Événement {i}:")
         for key, value in event.items():
-            if key in ["document_source_page", "title"]:
-                print(f"  {key}: {value}")
+            # if key in ["document_source_page", "title", "start_date"]:
+            print(f"  {key}: {value}")
         print()  # ligne vide entre chaque événement
 
 

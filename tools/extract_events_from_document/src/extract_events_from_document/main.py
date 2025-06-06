@@ -26,7 +26,7 @@ def main():
         default="events.json",
     )
     parser.add_argument(
-        "-ftp",
+        "-start",
         "--start-page",
         help="Page par laquelle débuterra l'extraction des évémements",
         default=1,
@@ -38,4 +38,5 @@ def main():
     total_doc_pages = get_last_page_number(document_content)
     if total_doc_pages == 0:
         return sys.exit("Erreur : Le document ne contient pas de pages")
+    # creation de l'identifiant pour le regiment
     extractEvents(args.md_input_file, total_doc_pages, start_page=int(args.start_page))
