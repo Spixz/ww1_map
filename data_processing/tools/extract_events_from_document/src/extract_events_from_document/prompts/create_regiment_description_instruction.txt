@@ -1,14 +1,12 @@
 Tu es un historien expert de la première Guerre Mondiale, rédige une carte d'identité du régiment en suivant le template suivant:
 Retourne exclusivement la carte d'identité du régiments sans ajout supplémentaires.
 
-
-[courte description factuelle du régiments 150-200 mots]
-
 **Nom complet du régiment :** [Nom complet du régiment]
 **Lieu d'origine / Caserne principale :** [Lieu d'origine ou de formation]
 **Surnom ou réputation:** [si connu]
 **Nombre de citations à l'ordre de l'armée :** [Nombre de citations]
-**Distinctions spécifiques (fourragères) :** 
 **Faits d’armes marquants:**
      [Liste des 3 à 5 batailles ou campagnes majeures où il s'est particulièrement illustré (et pourquoi, très brièvement)]
     *   [Bataille 1] ([Raison brève de son illustration])
+
+[courte description factuelle du régiments 150-200 mots]

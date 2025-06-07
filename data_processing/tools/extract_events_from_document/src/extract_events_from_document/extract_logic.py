@@ -3,13 +3,15 @@ from pathlib import Path
 from google.genai import types
 from common import FileReader, GeminiClientInstance, GeminiModels
 from json import loads
+from bson import ObjectId
 from extract_events_from_document.get_document_page import get_document_page
 from extract_events_from_document.services.events_service import (
     all_events,
-    storeEvents,
-    getEventsFromPage,
-    deleteEvents,
+    storeEventsIbDb,
+    getEventsInDbFromPages,
+    deleteEventsInDb,
     printEvents,
+    preareEventsForStorage,
 )
 from dotenv import load_dotenv
 
@@ -95,7 +97,9 @@ def removeDoublon(events: list[dict], targeted_page: int) -> list[dict]:
         return events
 
 
-def extractEvents(file_path: str, total_pages: int, start_page: int = 1) -> None:
+def extractEvents(
+    file_path: str, regiment_id: ObjectId, total_pages: int, start_page: int = 1
+) -> None:
     pages_per_interval = 1
     start_at = start_page
     while start_at < total_pages:
@@ -109,19 +113,24 @@ def extractEvents(file_path: str, total_pages: int, start_page: int = 1) -> None
         print("Événements trouvés:")
         printEvents(ex_events)
 
-        old_events = getEventsFromPage([interval.start_at])
+        old_events = getEventsInDbFromPages(
+            document_name=Path(file_path).name, selected_pages=[interval.start_at]
+        )
         print(f"ANCIENS EVENTS DE LA PAGE {interval.start_at} STOCKES EN DB")
         printEvents(old_events)
-        deleteEvents(old_events)
-        final = ex_events + old_events
+        deleteEventsInDb(old_events)
+        final = old_events + ex_events
         final = removeDoublon(final, interval.start_at)
+        # ! peut causer pb car s'il decide de garder l'id du precedant dnas la fusion je suis ken
+        # ! en vrai balek que les ids soient les memes comme ils ont ete suppr
         print(f"EVENEMENTS SANS DOUBLONS QUI SERONT STOCKE POUR {interval}")
         printEvents(final)
-        storeEvents(final)
+        storeEventsIbDb(preareEventsForStorage(regiment_id, final))
         print("ALL EVENTS")
-        printEvents(all_events)
+        printEvents(final)
+        # printEvents(all_events)
         print("\n\n\n")
         start_at = interval.end_at
 
-    print("All Events Final !!!!!")
-    printEvents(all_events)
+    # print("All Events Final !!!!!")
+    # printEvents(all_events)

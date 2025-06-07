@@ -1,7 +1,7 @@
 
 from datetime import datetime
 
-def str_date_to_datetime(date: str) -> datetime:
+def strDateToDatetime(date: str) -> datetime:
     """Convertis une date string utilisant le format **"%Y-%m-%d %H:%M:%S"** en une date de type datetime.
 
     Args:

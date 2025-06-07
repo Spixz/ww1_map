@@ -8,7 +8,7 @@ from bson import ObjectId
 def generateRegimentDescription(document_content):
     current_dir = os.path.dirname(__file__)
     prompt_path = os.path.join(
-        current_dir, "prompts", "create_regiment_description_instruction.txt"
+        current_dir, "../prompts", "create_regiment_description_instruction.txt"
     )
     instruction = FileReader.readFile(prompt_path)
 
@@ -17,11 +17,17 @@ def generateRegimentDescription(document_content):
         contents=document_content,
         config=types.GenerateContentConfig(
             system_instruction=instruction,
-            response_mime_type="application/json",
             thinking_config=types.ThinkingConfig(thinking_budget=0),
         ),
     )
     return response.text or ""  # .parsed si schéma
+
+
+def getRegimentDatas(regiment_id: ObjectId) -> Any | None:
+    client = MongoClientInstance()
+    database = client.get_database("french")
+    regiments = database.get_collection("regiments")
+    return regiments.find_one({"_id": regiment_id})
 
 
 def getRegimentIdByName(regiment_name) -> ObjectId | None:
@@ -32,5 +38,16 @@ def getRegimentIdByName(regiment_name) -> ObjectId | None:
 
     return None if regiment_data is None else regiment_data["_id"]
 
-def createRegimentIdentityCardIfNotExist(regiment_id: ObjectId):
-    return
+
+def createRegimentIdentityCardIfNotExist(regiment_id: ObjectId, document_content: str):
+    regiment = getRegimentDatas(regiment_id)
+
+    if "description" not in regiment:
+        description = generateRegimentDescription(document_content)
+        print(description)
+        client = MongoClientInstance()
+        collection = client.get_database("french").get_collection("regiments")
+        collection.update_one(
+            {"_id": regiment_id}, {"$set": {"description": description}}
+        )
+        print("Description of the regiment updated.")

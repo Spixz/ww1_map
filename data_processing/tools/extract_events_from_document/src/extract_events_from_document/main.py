@@ -21,12 +21,7 @@ def getLastPageNumber(text: str):
 def getRegimentIdFromFile(filepath: str) -> ObjectId | None:
     filename = Path(filepath).stem
     title = filename.replace("Historique du ", "")
-    regimentId = getRegimentIdByName(title)
-    if regimentId is None:
-        print(
-            f"Regiment with the title '{title}' not found in database. Create it before."
-        )
-    return regimentId
+    return getRegimentIdByName(title)
 
 
 def main():
@@ -55,14 +50,21 @@ def main():
     document_content = FileReader().readFile(args.md_input_file)
     total_doc_pages = getLastPageNumber(document_content)
     if total_doc_pages == 0:
-        return sys.exit("Erreur : Le document ne contient pas de pages")
+        sys.exit("Erreur : Le document ne contient pas de pages")
 
     # if regiment history is null or ou arument => creation de l'history du regiment
-    regimentId = getRegimentIdFromFile(args.md_input_file)
-    print(f"id du regiment: {regimentId}")
-    if regimentId is None:
-        return
+    regiment_id = getRegimentIdFromFile(args.md_input_file)
+    print(f"id du regiment: {regiment_id}")
+    if regiment_id is None:
+        sys.exit("""Regiment not found in database.
+                 The 'title' in the database must respect the following pattern:
+                 "[regiment_number]ème régiment d'infanterie"
+                 """)
 
-    createRegimentIdentityCardIfNotExist(regimentId)
-
-    # extractEvents(args.md_input_file, total_doc_pages, start_page=int(args.start_page))
+    createRegimentIdentityCardIfNotExist(regiment_id, document_content)
+    extractEvents(
+        file_path=args.md_input_file,
+        regiment_id=regiment_id,
+        total_pages=total_doc_pages,
+        start_page=int(args.start_page),
+    )
