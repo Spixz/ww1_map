@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: uv run",
+            "type": "python",
+            "request": "launch",
+            "program": "uv",
+            "args": ["run", "${file}"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Déboguer multi_tool_agent",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/multi_tool_agent/__init__.py",
+            "console": "integratedTerminal",
+            "args": [
+                "documents/books/la_grande_guerre_sur_le_front_occidental/markdown/tome_2.md",
+                "-db",
+                "multi_tool_a"
+            ]
+        }
+    ]
+}

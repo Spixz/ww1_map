@@ -1,0 +1,15 @@
+[project]
+name = "data_processing"
+version = "0.1.0"
+description = "Extract infos from documents and build the database"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv.workspace]
+members = [
+    "process_regiments_from_argonnaute",
+    "tools/pdf_to_markdown",
+    "tools/extract_events_from_document",
+    "common",
+]

@@ -1,1 +1,0 @@
-Shared class and methods across the project
