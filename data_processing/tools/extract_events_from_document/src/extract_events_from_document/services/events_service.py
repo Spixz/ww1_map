@@ -12,11 +12,11 @@ def preareEventsForStorage(regiment_id: ObjectId, events: list[dict]):
         {
             **event,
             "regiment_id": regiment_id,
-            "start_at": strDateToDatetime(event["start_at"])
-            if event["start_at"] is not None
+            "start_date": strDateToDatetime(event["start_date"])
+            if event["start_date"] is not None
             else None,
-            "end_at": strDateToDatetime(event["end_at"])
-            if event["end_at"] is not None
+            "end_date": strDateToDatetime(event["end_date"])
+            if event["end_date"] is not None
             else None,
         }
         for event in events
