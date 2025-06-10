@@ -1,5 +1,7 @@
 import re
 import argparse
+
+from tenacity import retry, stop_after_attempt
 from google.genai.types import (
     GenerateContentConfig,
     ThinkingConfig,
@@ -26,6 +28,7 @@ from events_location_finder.utils import (
 )
 
 
+@retry(stop=stop_after_attempt(3))
 def improve_location(event: dict, page_content: str) -> list[dict] | dict | None:
     instruction = get_instruction(event["event_kind"])
 
@@ -81,7 +84,10 @@ def events_iterator(doc_folder_path: str):
             },
         ]
     }
-    for event in collection.find(query_raw_location):
+
+    # no iteration on the cursor to avoir cursor timeout
+    event = collection.find_one(query_raw_location)
+    while event:
         document_source = get_document_page_from_event(
             local_doc_folder_path=doc_folder_path,
             document_name=event["document_source"],
@@ -92,6 +98,7 @@ def events_iterator(doc_folder_path: str):
         improved_location = improve_location(event, page_content=document_source)
         print(improved_location)
         updateEventCoordinates(event["_id"], improved_location)
+        event = collection.find_one(query_raw_location)
 
 
 def main():

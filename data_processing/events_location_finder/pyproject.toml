@@ -12,6 +12,7 @@ dependencies = [
     "pymongo>=4.13.0",
     "pytest>=8.3.5",
     "common",
+    "tenacity>=9.1.2",
 ]
 
 [tool.uv.sources]
