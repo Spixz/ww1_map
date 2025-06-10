@@ -9,12 +9,13 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "dnspython>=2.7.0",
-    "google-adk==1.1.1",
     "pymongo>=4.13.0",
     "pytest>=8.3.5",
-    "tinydb>=4.8.2",
-    "common"
+    "common",
 ]
+
+[tool.uv.sources]
+common = { workspace = true }
 
 [project.scripts]
 extract-events-from-document = "extract_events_from_document.main:main"
@@ -22,10 +23,6 @@ extract-events-from-document = "extract_events_from_document.main:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-#dis a uv d'aller chercher common en local par sur pypi
-[tool.uv.sources]
-common = { workspace = true }
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/extract_events_from_document"]

@@ -2,12 +2,11 @@ import argparse
 import re
 import sys
 from bson import ObjectId
-from dotenv import load_dotenv
 from pathlib import Path
 
 from common import FileReader  # vient de tools/utils/src/utils/__init__.py
 from extract_events_from_document.extract_logic import extractEvents
-from extract_events_from_document.services.regiments_service import (
+from extract_events_from_document.services import (
     getRegimentIdByName,
     createRegimentIdentityCardIfNotExist,
 )

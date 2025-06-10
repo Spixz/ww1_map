@@ -9,7 +9,9 @@ dependencies = []
 [tool.uv.workspace]
 members = [
     "process_regiments_from_argonnaute",
+    "events_location_finder",
+    "common",
     "tools/pdf_to_markdown",
     "tools/extract_events_from_document",
-    "common",
+    "tools/lamber93_to_latlong",
 ]

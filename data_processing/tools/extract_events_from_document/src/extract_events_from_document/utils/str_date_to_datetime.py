@@ -1,13 +1,11 @@
-
 from datetime import datetime
 
-def strDateToDatetime(date: str) -> datetime:
-    """Convertis une date string utilisant le format **"%Y-%m-%d %H:%M:%S"** en une date de type datetime.
 
-    Args:
-        date (str): Date au format **"%Y-%m-%d %H:%M:%S"** (e.g 2025-05-30 14:32:00).
-    
-    Returns:
-        Date au format datetime.
-    """
-    return datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
+def strDateToDatetime(date: str) -> datetime | None:
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            return datetime.strptime(date, fmt)
+        except Exception:
+            continue
+    print(f"Date format invalid {date}")
+    return None

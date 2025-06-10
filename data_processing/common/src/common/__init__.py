@@ -2,3 +2,5 @@
 from .file_reader import FileReader
 from .mongo_client import MongoClientInstance
 from .gemini_client import GeminiClientInstance, GeminiModels
+from .google_maps_client import GoogleMapsClientInstance
+from .get_document_page import get_document_page

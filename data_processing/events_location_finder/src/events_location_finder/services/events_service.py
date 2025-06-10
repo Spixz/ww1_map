@@ -1,23 +1,5 @@
-from bson import ObjectId
-
 from common import MongoClientInstance
-from extract_events_from_document.utils.str_date_to_datetime import strDateToDatetime
-
-
-def preareEventsForStorage(regiment_id: ObjectId, events: list[dict]):
-    return [
-        {
-            **{key: value for key, value in event.items() if key != "_id"},
-            "regiment_id": regiment_id,
-            "start_date": strDateToDatetime(event["start_date"])
-            if "start_date" in event and event["start_date"] is not None
-            else None,
-            "end_date": strDateToDatetime(event["end_date"])
-            if "end_date" in event and event["end_date"] is not None
-            else None,
-        }
-        for event in events
-    ]
+from bson import ObjectId
 
 
 def storeEventsIbDb(events: list[dict]):
@@ -44,10 +26,24 @@ def deleteEventsInDb(events: list[dict]):
     collection.delete_many({"_id": {"$in": events_ids}})
 
 
-def printEvents(events: list[dict]):
+def updateEventCoordinates(event_id: ObjectId, coordinates: dict | list[dict]):
+    client = MongoClientInstance()
+    collection = client.get_database("french").get_collection("events")
+    filter = {"_id": event_id}
+    collection.update_one(filter, {"$set": {"coordinates": coordinates}})
+
+
+def printEvent(event: dict, property_names: list[str] = []):
+    for key, value in event.items():
+        if property_names:
+            if key in property_names:
+                print(f"  {key}: {value}")
+        else:
+            print(f"  {key}: {value}")
+    print()
+
+
+def printEvents(events: list[dict], property_names: list[str] = []):
     for i, event in enumerate(events, start=1):
         print(f"Événement {i}:")
-        for key, value in event.items():
-            if key in ["document_source_page", "title", "start_date"]:
-                print(f"  {key}: {value}")
-        print()
+        printEvent(event, property_names)

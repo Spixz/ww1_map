@@ -9,15 +9,15 @@ def extract_pages(content: str, pattern: str) -> str | None:
 def get_document_page(
     file_path: str, total_pages: int, start_at: int, end_at: int = None
 ) -> str:
-    """Récupère dans le document les pages comprises dans l'intervalle.
-    Si end_at dépasse le nombre de pages, alors la récupération ce fait jusqu'à la fin du fichier.
+    """Retrieves pages from the document within the specified interval.
+    If 'end_at' exceeds the total number of pages, retrieval continues until the end of the file.
 
     Args:
-        page_interval (str): L'intervalle comprenant les pages à récupérer (e.g., "1", "3-10", "12", "45-100").
+        page_interval (str): The interval comprising the pages to retrieve (e.g., "1", "3-10", "12", "45-100").
 
     Returns:
-        En cas de succès return les pages sélectionnées
-        En cas d'erreur return None
+        On success, returns the selected pages.
+        On error, returns None.
     """
     try:
         expression = None

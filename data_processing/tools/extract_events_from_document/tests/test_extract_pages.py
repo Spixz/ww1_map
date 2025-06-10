@@ -1,8 +1,7 @@
 import os
 import tempfile
-import json
 
-from extract_events_from_document.get_document_page import get_document_page
+from common.get_document_page import get_document_page
 
 
 def create_temp_file(content: str) -> str:

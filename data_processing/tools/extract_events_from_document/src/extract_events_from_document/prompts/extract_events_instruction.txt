@@ -13,50 +13,50 @@ extract_events_instruction = """Tu es un historien expert chargé de construire 
 - Les dates doivent être au format **"%Y-%m-%d %H:%M:%S"**.
 - Le champ `document_source` doit contenir **"titre_du_document"**.
 - Résume la description dans le champ `title`.
-- Retourne une **liste d’événements** sous la forme `[{...}, {...}]`.
+- Retourne une **liste d’événements** sous la forme `[{...}, {...}]` **dans l'ordre dans lequelle ils se sont déroulés**.
 
 
 Les événements politiques : 
 {
 	"event_kind": "Événement politique",
-	"start_date",
-	"end_date", (si applicable)
-	"description",
-	"title",
-	"document_source",
+	"start_date", ("%Y-%m-%d %H:%M:%S")
+	"end_date", ("%Y-%m-%d %H:%M:%S") (si applicable)
+	"description", (String)
+	"title", (String)
+	"document_source", (String)
 	"document_source_page" (int)
 }
 
 Les mouvements de troupes :
 {
 	"event_kind": "Mouvement de troupes",
-	"start_date",
+	"start_date", ("%Y-%m-%d %H:%M:%S")
 	"end_date", (si applicable)
-	"description",
-	"title",
-	"movement_type",
-	"executing_unit",
-	"departure_point",
-	"arrival_point",
-	"document_source",
+	"description", (String)
+	"title", (String)
+	"movement_type", (String)
+	"executing_unit", (String)
+	"departure_point", (String)
+	"arrival_point", (String)
+	"document_source", (String)
 	"document_source_page" (int)
 }
 
 Les événements militaire:
 {
 	"event_kind": "Événement militaire",
-	"start_date",
+	"start_date", ("%Y-%m-%d %H:%M:%S")
 	"end_date", (si applicable)
-	"location",
-	"engagement_type", (affrontement, fortification, ...)
-	"commander",
-	"executing_unit",
-	"order",
-	"target", (si applicable)
-	"outcome", (si applicable)
-	"description",
-	"title",
-	"document_source",
+	"location", (String)
+	"engagement_type", (String) (affrontement, fortification, ...)
+	"commander", (String)
+	"executing_unit", (String)
+	"order", (String)
+	"target", (String) (si applicable)
+	"outcome", (String) (si applicable)
+	"description", (String)
+	"title", (String)
+	"document_source", (String)
 	"document_source_page" (int)
  }
 """

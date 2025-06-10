@@ -1,12 +1,10 @@
 import os
 from pathlib import Path
 from google.genai import types
-from common import FileReader, GeminiClientInstance, GeminiModels
+from common import FileReader, GeminiClientInstance, GeminiModels, get_document_page
 from json import loads
 from bson import ObjectId
-from extract_events_from_document.get_document_page import get_document_page
-from extract_events_from_document.services.events_service import (
-    all_events,
+from extract_events_from_document.services import (
     storeEventsIbDb,
     getEventsInDbFromPages,
     deleteEventsInDb,
@@ -77,7 +75,6 @@ def removeDoublon(events: list[dict], targeted_page: int) -> list[dict]:
     instruction = FileReader().readFile(instruction_path)
 
     prompt = f"""
-        page_cible = {targeted_page}
         all_events = {events}
     """
 
@@ -109,28 +106,22 @@ def extractEvents(
         )
         print(f"========INTERVALLE {interval}=========")
         print(page_content)
-        ex_events = extractEventsFromPage(file_path, page_content)
+        extracted_events = extractEventsFromPage(file_path, page_content)
         print("Événements trouvés:")
-        printEvents(ex_events)
+        printEvents(extracted_events)
 
-        old_events = getEventsInDbFromPages(
+        already_found_events = getEventsInDbFromPages(
             document_name=Path(file_path).name, selected_pages=[interval.start_at]
         )
         print(f"ANCIENS EVENTS DE LA PAGE {interval.start_at} STOCKES EN DB")
-        printEvents(old_events)
-        deleteEventsInDb(old_events)
-        final = old_events + ex_events
+        printEvents(already_found_events)
+        deleteEventsInDb(already_found_events)
+        final = already_found_events + extracted_events
         final = removeDoublon(final, interval.start_at)
-        # ! peut causer pb car s'il decide de garder l'id du precedant dnas la fusion je suis ken
-        # ! en vrai balek que les ids soient les memes comme ils ont ete suppr
         print(f"EVENEMENTS SANS DOUBLONS QUI SERONT STOCKE POUR {interval}")
         printEvents(final)
         storeEventsIbDb(preareEventsForStorage(regiment_id, final))
         print("ALL EVENTS")
         printEvents(final)
-        # printEvents(all_events)
         print("\n\n\n")
         start_at = interval.end_at
-
-    # print("All Events Final !!!!!")
-    # printEvents(all_events)

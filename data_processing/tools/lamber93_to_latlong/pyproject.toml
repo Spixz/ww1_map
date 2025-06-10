@@ -1,19 +1,18 @@
 [project]
-name = "common"
+name = "lamber93-to-latlong"
 version = "0.1.0"
-description = "Functions used across the project"
+description = "Add your description here"
 readme = "README.md"
 authors = [
     { name = "Cyril Mammar", email = "mammar.cyril@epitech.eu" }
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "dnspython>=2.7.0",
-    "pymongo>=4.13.0",
-    "dotenv>=0.9.9",
-    "google-genai>=1.16.1",
-    "googlemaps>=4.10.0",
+    "pyproj>=3.7.1",
 ]
+
+[project.scripts]
+lamber93-to-latlong = "lamber93_to_latlong:main"
 
 [build-system]
 requires = ["hatchling"]
