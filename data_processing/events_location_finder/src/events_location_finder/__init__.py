@@ -1,3 +1,4 @@
+from joblib import Parallel, delayed
 import re
 import argparse
 
@@ -29,7 +30,7 @@ from events_location_finder.utils import (
 
 
 @retry(stop=stop_after_attempt(3))
-def improve_location(event: dict, page_content: str) -> list[dict] | dict | None:
+def get_event_coordinates(event: dict, page_content: str) -> list[dict] | dict | None:
     instruction = get_instruction(event["event_kind"])
 
     prompt = f"""
@@ -66,6 +67,19 @@ def improve_location(event: dict, page_content: str) -> list[dict] | dict | None
         return None
 
 
+def get_event_coordinates_and_update(event: dict, doc_folder_path: str):
+    document_source = get_document_page_from_event(
+        local_doc_folder_path=doc_folder_path,
+        document_name=event["document_source"],
+        page=event["document_source_page"],
+    )
+    # print(document_source)
+    improved_location = get_event_coordinates(event, page_content=document_source)
+    printEvent(event)
+    print(improved_location)
+    updateEventCoordinates(event["_id"], improved_location)
+
+
 def events_iterator(doc_folder_path: str):
     client = MongoClientInstance()
     collection = client.get_database("french").get_collection("events")
@@ -86,19 +100,13 @@ def events_iterator(doc_folder_path: str):
     }
 
     # no iteration on the cursor to avoir cursor timeout
-    event = collection.find_one(query_raw_location)
-    while event:
-        document_source = get_document_page_from_event(
-            local_doc_folder_path=doc_folder_path,
-            document_name=event["document_source"],
-            page=event["document_source_page"],
+    events = collection.find(query_raw_location).limit(4).to_list()
+    while events:
+        Parallel(n_jobs=4, backend="threading", verbose=1)(
+            delayed(get_event_coordinates_and_update)(ev, doc_folder_path)
+            for ev in events
         )
-        # print(document_source)
-        printEvent(event)
-        improved_location = improve_location(event, page_content=document_source)
-        print(improved_location)
-        updateEventCoordinates(event["_id"], improved_location)
-        event = collection.find_one(query_raw_location)
+        events = collection.find(query_raw_location).limit(4).to_list()
 
 
 def main():
