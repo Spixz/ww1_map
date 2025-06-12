@@ -1,4 +1,6 @@
 {
+  "AppLoadingFailed": "Une erreur s'est produite durant le chargment de l'application.",
+
     "PAGE-DICTIONARIES_SEARCH_RESULTS_SCREEN": "",
     "Search": "Search",
     "Loading": "Loading",

@@ -86,8 +86,7 @@ def removeDoublon(events: list[dict], targeted_page: int) -> list[dict]:
             response_mime_type="application/json",
         ),
     )
-    text_response = response.text or ""  # .parsed si schéma
-
+    text_response = response.text or ""
     try:
         return loads(text_response)
     except Exception:
@@ -119,6 +118,7 @@ def extractEvents(
         final = already_found_events + extracted_events
         final = removeDoublon(final, interval.start_at)
         print(f"EVENEMENTS SANS DOUBLONS QUI SERONT STOCKE POUR {interval}")
+        print(final)
         printEvents(final)
         storeEventsIbDb(preareEventsForStorage(regiment_id, final))
         print("ALL EVENTS")
