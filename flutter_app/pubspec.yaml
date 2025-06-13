@@ -30,6 +30,8 @@ dependencies:
   flutter_map: ^8.1.1
   latlong2: ^0.9.1
   flutter_map_cancellable_tile_provider: ^3.1.0
+  pdfrx: ^1.2.0
+  flutter_box_transform: ^0.4.7
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +48,4 @@ flutter:
   assets:
     - assets/translations/
     - .env.dev
+    - .env.prod

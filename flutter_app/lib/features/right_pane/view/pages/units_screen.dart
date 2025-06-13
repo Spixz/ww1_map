@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ww1_map/features/right_pane/view/widgets/content_tab.dart';
 import 'package:ww1_map/features/right_pane/view/widgets/drag_indicator.dart';
 import 'package:ww1_map/features/right_pane/view/widgets/regiment_infos_header.dart';
 import 'package:ww1_map/utils/extensions/extensions.dart';
@@ -13,21 +14,16 @@ class RightPaneScreen extends ConsumerStatefulWidget {
 
 class _UnitsPageState extends ConsumerState<RightPaneScreen> {
   bool _hovering = false;
-  double width = 300;
+  double width = 330;
 
   void _onDrag(DragUpdateDetails details) {
     setState(() {
-      width = (width - details.delta.dx).clamp(150, 300);
+      width = (width - details.delta.dx).clamp(330, 700);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final tests = List<String>.generate(
-      50,
-      (index) => "${index.toString()} entry",
-    );
-
     return MouseRegion(
       cursor: SystemMouseCursors.resizeLeftRight, // ou .resizeUpDown
       onEnter: (_) => setState(() => _hovering = true),
@@ -38,7 +34,9 @@ class _UnitsPageState extends ConsumerState<RightPaneScreen> {
           width: width,
           height: context.height,
           decoration: BoxDecoration(
-            color: Colors.grey.shade300,
+            // color: Colors.grey.shade300,
+            // color: Color(0xFFF5E1C0),
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12),
               bottomLeft: Radius.circular(12),
@@ -50,7 +48,15 @@ class _UnitsPageState extends ConsumerState<RightPaneScreen> {
           child: Row(
             children: [
               const DragIndicator(),
-              Expanded(child: Column(children: [const RegimentInfosHeader()])),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const RegimentInfosHeader(),
+                    Expanded(child: const RightPaneContentTab()),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

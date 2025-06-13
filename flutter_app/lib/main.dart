@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ww1_map/core/scroll_behavior.dart';
+import 'package:ww1_map/core/theme.dart';
 import 'package:ww1_map/features/launching_screen/view/pages/app_loading_failed_screen.dart';
 import 'package:ww1_map/features/launching_screen/view/pages/splash_screen.dart';
 import 'package:ww1_map/routing/router.dart';
@@ -39,6 +40,7 @@ class MyApp extends ConsumerWidget {
     return databaseProvider.when(
       data:
           (_) => MaterialApp.router(
+            theme: ww1Theme,
             debugShowCheckedModeBanner: false,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
