@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ww1_map/common_widgets/common_widgets_export.dart';
-import 'package:ww1_map/features/regiments_pane/providers/all_regiments_provider.dart';
-import 'package:ww1_map/features/regiments_pane/providers/regiments_pane_notifier.dart';
-import 'package:ww1_map/features/regiments_pane/view/widgets/close_arrow.dart';
-import 'package:ww1_map/features/regiments_pane/view/widgets/open_arrow.dart';
+import 'package:ww1_map/features/left_pane/providers/all_regiments_provider.dart';
+import 'package:ww1_map/features/left_pane/providers/left_pane_notifier.dart';
+import 'package:ww1_map/features/left_pane/view/widgets/close_arrow.dart';
+import 'package:ww1_map/features/left_pane/view/widgets/open_arrow.dart';
 import 'package:ww1_map/shared/domain/models/regiments/regiment.dart';
 import 'package:ww1_map/shared/domain/repositories/regiment_repository.dart';
 import 'package:ww1_map/utils/extensions/extensions.dart';
 
-class RegimentPaneScreen extends ConsumerWidget {
-  const RegimentPaneScreen({super.key});
+class LeftPaneScreen extends ConsumerWidget {
+  const LeftPaneScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isActive = ref.watch(regimentPaneNotifierProvider);
+    final paneState = ref.watch(leftPaneNotifierProvider);
 
-    if (!isActive) {
+    if (!paneState.enabled) {
       return Padding(
         padding: EdgeInsets.only(top: context.height / 2),
         child: OpenArrow(),

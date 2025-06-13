@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:ww1_map/features/regiments_pane/providers/regiments_pane_notifier.dart';
+import 'package:ww1_map/features/left_pane/providers/left_pane_notifier.dart';
 
 class OpenArrow extends ConsumerWidget {
   const OpenArrow({super.key});
@@ -20,7 +20,7 @@ class OpenArrow extends ConsumerWidget {
         ),
       ),
       child: InkWell(
-        onTap: () => ref.read(regimentPaneNotifierProvider.notifier).show(),
+        onTap: () => ref.read(leftPaneNotifierProvider.notifier).show(),
         child: Icon(Icons.arrow_forward_ios, color: Colors.white),
       ),
     );
