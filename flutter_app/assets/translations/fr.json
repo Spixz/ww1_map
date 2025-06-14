@@ -7,6 +7,8 @@
   "Description": "Description",
   "HeavyDocumentLoading": "Le document est lourd, il peut prendre du temps à charger.",
   "OriginalEdition": "Livre d'orgine",
+  "SelectedARegiment": "Please select a regiment",
+  "NoRegimentDescription": "Ce régiment n'a pas encore de description",
 
   "SEARCH": "",
   "Search": "Rechercher",
@@ -29,6 +31,7 @@
   "ErrorMissingField": "Le champ {} est manquant.",
 
   "SNACKBARS": "",
+  "Error": "Erreur",
   "unexpectedErrorHasOccurred": "Une erreur non attendue s'est produite",
   "expectedErrorHasOccurred": "Une erreur attendue s'est produite"
 }

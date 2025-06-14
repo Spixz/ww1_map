@@ -13,15 +13,16 @@ class OpenArrow extends ConsumerWidget {
       width: 60,
       height: 60,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.white,
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(15),
-          bottomRight: Radius.circular(15),
+          topRight: Radius.circular(12),
+          bottomRight: Radius.circular(12),
         ),
+        boxShadow: [BoxShadow(blurRadius: 12, offset: Offset(1, 1))],
       ),
       child: InkWell(
         onTap: () => ref.read(leftPaneNotifierProvider.notifier).show(),
-        child: Icon(Icons.arrow_forward_ios, color: Colors.white),
+        child: Icon(Icons.arrow_forward_ios, color: Colors.black),
       ),
     );
   }

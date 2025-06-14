@@ -8,7 +8,7 @@ final rightPaneNotifierProvider = NotifierProvider(RightPaneNotifier.new);
 class RightPaneNotifier extends Notifier<PaneState> {
   @override
   PaneState build() =>
-      PaneState(width: 330, minWidth: 330, maxWidth: 700, enabled: true);
+      PaneState(width: 500, minWidth: 330, maxWidth: 700, enabled: true);
 
   void updateWidth(double width) {
     if (width <= state.maxWidth && width >= state.minWidth) {

@@ -22,7 +22,7 @@ class RegimentInfosHeader extends ConsumerWidget {
       decoration: BoxDecoration(color: rightPaneHeaderColor),
       child: selectedRegiment.when(
         data: (Regiment? regiment) => _Header(regiment),
-        error: (_, __) => Center(child: Text("Error")),
+        error: (_, __) => Center(child: Text(context.tr("Error"))),
         loading: () => LoadingCircle(),
       ),
     );
@@ -36,8 +36,14 @@ class _Header extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (regiment == null) {
-      return Center(child: Text("Aucun regiment sélectionné"));
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(19.0),
+          child: Text(context.tr("SelectARegiment")),
+        ),
+      );
     }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

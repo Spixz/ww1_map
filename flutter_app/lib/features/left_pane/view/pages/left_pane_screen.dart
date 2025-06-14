@@ -19,12 +19,12 @@ class LeftPaneScreen extends ConsumerWidget {
     final paneState = ref.watch(leftPaneNotifierProvider);
 
     if (!paneState.enabled) {
-      return Padding(
-        padding: EdgeInsets.only(top: context.height / 2),
-        child: OpenArrow(),
+      return SizedBox(
+        height: context.height,
+        child: Center(child: OpenArrow()),
       );
     } else {
-      return _ListRegiments();
+      return const Row(children: [_ListRegiments(), CloseArrow()]);
     }
   }
 }
@@ -38,22 +38,16 @@ class _ListRegiments extends ConsumerWidget {
       width: 290,
       height: context.height,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300,
+        color: Colors.white,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(12),
           bottomRight: Radius.circular(12),
         ),
-        boxShadow: [BoxShadow(blurRadius: 20, offset: Offset.fromDirection(5))],
+        boxShadow: [BoxShadow(blurRadius: 20, offset: Offset(3, 3))],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 15, bottom: 10),
-            child: CloseArrow(),
-          ),
-          Expanded(child: _RegimentListViewBuilder()),
-        ],
+        children: [Expanded(child: _RegimentListViewBuilder())],
       ),
     );
   }

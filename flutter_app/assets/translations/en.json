@@ -7,6 +7,8 @@
   "Description": "Description",
   "HeavyDocumentLoading": "The document is large and may take some time to load.",
   "OriginalEdition": "Original edition",
+  "SelectedARegiment": "Sélectionnez un régiment",
+  "NoRegimentDescription": "This regiment does not have a description yet",
 
   "SEARCH": "",
   "Search": "Search",
@@ -29,6 +31,7 @@
   "ErrorMissingField": "The field {} is missing.",
 
   "SNACKBARS": "",
+  "Error": "Error",
   "unexpectedErrorHasOccurred": "An unexpected error occurred",
   "expectedErrorHasOccurred": "An expected error occurred"
 }

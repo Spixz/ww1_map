@@ -9,9 +9,26 @@ class CloseArrow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () => ref.read(leftPaneNotifierProvider.notifier).hide(),
-      child: Icon(Icons.arrow_back_ios, size: 30),
+    return SizedBox(
+      child: Center(
+        child: InkWell(
+          onTap: () => ref.read(leftPaneNotifierProvider.notifier).hide(),
+          child: Container(
+            height: 60,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
+              boxShadow: [
+                // BoxShadow(blurRadius: 20, offset: Offset(5, 5)),
+              ],
+            ),
+            child: Icon(Icons.arrow_back_ios, size: 24,),
+          ),
+        ),
+      ),
     );
   }
 }
