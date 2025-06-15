@@ -14,14 +14,8 @@ WarEvent _$WarEventFromJson(Map<String, dynamic> json) => WarEvent(
   description: json['description'] as String,
   documentSource: json['document_source'] as String,
   documentSourcePage: (json['document_source_page'] as num).toInt(),
-  startDate:
-      json['start_date'] == null
-          ? null
-          : DateTime.parse(json['start_date'] as String),
-  endDate:
-      json['end_date'] == null
-          ? null
-          : DateTime.parse(json['end_date'] as String),
+  startDate: dynamicToDateTime(json['start_date']),
+  endDate: dynamicToDateTime(json['end_date']),
 );
 
 Map<String, dynamic> _$WarEventToJson(WarEvent instance) => <String, dynamic>{

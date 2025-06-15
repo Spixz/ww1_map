@@ -3,6 +3,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:ww1_map/shared/domain/models/events/gps_coordinates.dart';
+import 'package:ww1_map/shared/domain/models/events/war_event_coordinates.dart';
 
 part 'unit_movement_coordinates.g.dart';
 
@@ -13,10 +14,14 @@ class UnitMovementCoordinates {
     required this.arrivalPoint,
   });
 
-  final List<GpsCoordinates> departurePoint;
-  final List<GpsCoordinates> arrivalPoint;
+  final List<WarEventCoordinates> departurePoint;
+  final List<WarEventCoordinates> arrivalPoint;
 
   factory UnitMovementCoordinates.fromJson(Map<String, dynamic> json) =>
       _$UnitMovementCoordinatesFromJson(json);
+
   Map<String, dynamic> toJson() => _$UnitMovementCoordinatesToJson(this);
+
+  @override
+  String toString() => toJson().toString();
 }

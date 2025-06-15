@@ -11,11 +11,11 @@ UnitMovementCoordinates _$UnitMovementCoordinatesFromJson(
 ) => UnitMovementCoordinates(
   departurePoint:
       (json['departure_point'] as List<dynamic>)
-          .map((e) => GpsCoordinates.fromJson(e as Map<String, dynamic>))
+          .map((e) => WarEventCoordinates.fromJson(e as Map<String, dynamic>))
           .toList(),
   arrivalPoint:
       (json['arrival_point'] as List<dynamic>)
-          .map((e) => GpsCoordinates.fromJson(e as Map<String, dynamic>))
+          .map((e) => WarEventCoordinates.fromJson(e as Map<String, dynamic>))
           .toList(),
 );
 

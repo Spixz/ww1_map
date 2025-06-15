@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:ww1_map/shared/data/providers/regiment_repository_provider.dart';
+import 'package:ww1_map/shared/data/providers/regiment_repository_impl_provider.dart';
 import 'package:ww1_map/shared/domain/models/regiments/regiment.dart';
 
 final selectedRegimentIdProvider = StateProvider<ObjectId?>(

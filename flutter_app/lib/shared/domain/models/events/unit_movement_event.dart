@@ -34,4 +34,7 @@ class UnitMovementEvent extends WarEvent {
 
   @override
   Map<String, dynamic> toJson() => _$UnitMovementEventToJson(this);
+
+  @override
+  String toString() => toJson().toString();
 }

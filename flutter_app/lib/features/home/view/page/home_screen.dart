@@ -5,6 +5,7 @@ import 'package:ww1_map/features/map/view/pages/map_screen.dart';
 import 'package:ww1_map/features/pdf_window/view/page/pdf_window.dart';
 import 'package:ww1_map/features/left_pane/view/pages/left_pane_screen.dart';
 import 'package:ww1_map/features/right_pane/view/pages/right_pane_screen.dart';
+import 'package:ww1_map/features/timeline/view/pages/timeline_screen.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -21,6 +22,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         children: [
           const MapScreen(),
           Positioned(top: 0, left: 0, child: const LeftPaneScreen()),
+          Positioned(left: 0, bottom: 0, child: const TimelineScreen()),
           Positioned(top: 0, right: 0, child: const RightPaneScreen()),
           PdfWindowScreen(),
         ],

@@ -37,6 +37,10 @@ class MilitaryEvent extends WarEvent {
 
   factory MilitaryEvent.fromJson(Map<String, dynamic> json) =>
       _$MilitaryEventFromJson(json);
+
   @override
   Map<String, dynamic> toJson() => _$MilitaryEventToJson(this);
+
+  @override
+  String toString() => toJson().toString();
 }

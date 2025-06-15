@@ -2,6 +2,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:ww1_map/shared/domain/enums/event_kind.dart';
+import 'package:ww1_map/shared/domain/mappers/dynamic_to_datetime.dart';
 import 'package:ww1_map/shared/domain/mappers/object_id_from_json.dart';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -37,7 +38,9 @@ class WarEvent {
   final String documentSource;
   final int documentSourcePage;
 
+  @JsonKey(fromJson: dynamicToDateTime)
   final DateTime? startDate;
+  @JsonKey(fromJson: dynamicToDateTime)
   final DateTime? endDate;
 
   factory WarEvent.fromJson(Map<String, dynamic> json) =>

@@ -1,21 +1,17 @@
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:ww1_map/shared/domain/models/events/gps_coordinates.dart';
-import 'package:ww1_map/shared/domain/models/events/war_event.dart';
 
-abstract class WarEventsRepository {
+import 'package:ww1_map/features/timeline/domain/models/date_interval.dart';
+import 'package:ww1_map/shared/domain/models/events/war_event.dart';
+import 'package:ww1_map/shared/domain/models/map/rect_coordinates.dart';
+
+abstract class EventsRepository {
   Future<WarEvent?> getEventById(ObjectId id);
-  Future<List<WarEvent>> getEventsByRegiment({
-    //pr le scroll sur la list des evenements.
-    required ObjectId regimentId,
-    required int startAt,
-    required int offset,
-  });
-  Future<List<WarEvent>> getEventsInArea({
-    required GpsCoordinates bottomLeft,
-    required GpsCoordinates topRight,
+
+  Future<List<WarEvent>> getEvents({
     ObjectId? regimentId,
+    DateInterval? interval,
+    RectCoordinates? bounds,
+    int? startAt,
+    required int limit,
   });
-  //get event sur une periode.
-  //get event sur une surface
-  //get event sur un regiment
 }

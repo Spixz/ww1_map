@@ -5,9 +5,7 @@ class SingleRoute {
   final String path;
 
   @override
-  String toString() {
-    return "name: $name | path: $path";
-  }
+  String toString() => "name: $name | path: $path";
 }
 
 abstract final class Routes {
@@ -16,8 +14,5 @@ abstract final class Routes {
   static const review = SingleRoute('Review', '/review/:title');
   static const settings = SingleRoute('Settings', '/settings');
 
-  static const all = [
-    home,
-    settings,
-  ];
+  static const all = [home, settings];
 }

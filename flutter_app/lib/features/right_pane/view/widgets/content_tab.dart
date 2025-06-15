@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ww1_map/features/right_pane/view/widgets/events_listview.dart';
 import 'package:ww1_map/features/right_pane/view/pages/regiment_description_tab.dart';
 
 class RightPaneContentTab extends ConsumerWidget {
@@ -29,7 +30,7 @@ class RightPaneContentTab extends ConsumerWidget {
           Expanded(
             child: TabBarView(
               children: const [
-                Icon(Icons.directions_transit),
+                EventsListview(),
                 RegimentDescription(),
               ],
             ),
