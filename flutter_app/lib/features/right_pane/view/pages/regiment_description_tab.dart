@@ -32,7 +32,7 @@ class RegimentDescription extends ConsumerWidget {
         );
       },
       error: (_, __) => Center(child: Text(context.tr("Error"))),
-      loading: () => LoadingCircle(),
+      loading: () => CircularLoading(),
     );
   }
 }

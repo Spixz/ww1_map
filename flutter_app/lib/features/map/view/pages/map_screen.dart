@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:ww1_map/features/map/providers/map_informations_notifier.dart';
 import 'package:ww1_map/shared/data/mappers/lat_lng_bounds_mapper.dart';
 import 'package:ww1_map/shared/data/mappers/lat_lnt_mapper.dart';
+import 'package:ww1_map/utils/debouncer.dart';
 
 class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});
@@ -16,9 +19,12 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController mapController = MapController();
+  late StreamSubscription<MapEvent> mapEventsSubscription;
+  final Debouncer debouncer = Debouncer(delay: Duration(milliseconds: 500));
 
   @override
   void dispose() {
+    mapEventsSubscription.cancel();
     mapController.dispose();
     super.dispose();
   }
@@ -27,12 +33,18 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterMap(
-        mapController: MapController(),
+        mapController: mapController,
         options: MapOptions(
           initialCenter: LatLng(48.866667, 2.373333),
           initialZoom: 12,
-          onMapReady: () {},
-          onPositionChanged: _onPositionChanged,
+          onMapReady: () {
+            mapEventsSubscription = mapController.mapEventStream.listen((
+              event,
+            ) {
+              if (event is MapEventMoveEnd) _updateMapInformation();
+              if (event is MapEventScrollWheelZoom) _updateMapInformation();
+            });
+          },
         ),
         children: [
           TileLayer(
@@ -59,12 +71,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     );
   }
 
-  void _onPositionChanged(MapCamera camera, bool hasGestue) {
-    ref
-        .read(mapInformationsProvider.notifier)
-        .update(
-          center: camera.center.toGpsCoordinates,
-          bounds: camera.visibleBounds.toRectCoordinates,
-        );
+  void _updateMapInformation() {
+    debouncer.call(
+      () => ref
+          .read(mapInformationsProvider.notifier)
+          .update(
+            center: mapController.camera.center.toGpsCoordinates,
+            bounds: mapController.camera.visibleBounds.toRectCoordinates,
+          ),
+    );
   }
 }

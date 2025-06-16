@@ -30,8 +30,9 @@
   "VALIDATION": "",
   "ErrorMissingField": "Le champ {} est manquant.",
 
-  "SNACKBARS": "",
+  "ERRORS": "",
   "Error": "Erreur",
+  "AnErrorOccured": "Une erreur s’est produite",
   "unexpectedErrorHasOccurred": "Une erreur non attendue s'est produite",
   "expectedErrorHasOccurred": "Une erreur attendue s'est produite"
 }

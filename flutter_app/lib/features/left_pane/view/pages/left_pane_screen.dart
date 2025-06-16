@@ -7,6 +7,7 @@ import 'package:ww1_map/features/left_pane/providers/all_regiments_provider.dart
 import 'package:ww1_map/features/left_pane/providers/left_pane_notifier.dart';
 import 'package:ww1_map/features/left_pane/view/widgets/close_arrow.dart';
 import 'package:ww1_map/features/left_pane/view/widgets/open_arrow.dart';
+import 'package:ww1_map/features/right_pane/providers/selected_regiment_id_notifier.dart';
 import 'package:ww1_map/shared/domain/models/regiments/regiment.dart';
 import 'package:ww1_map/shared/domain/repositories/regiment_repository.dart';
 import 'package:ww1_map/utils/extensions/extensions.dart';
@@ -72,7 +73,7 @@ class _RegimentListViewBuilder extends ConsumerWidget {
           },
         );
       },
-      loading: () => LoadingCircle(),
+      loading: () => CircularLoading(),
       error: (_, __) => Text("error lor"),
     );
   }
@@ -84,9 +85,16 @@ class _RegimentCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final selectedRegimentId = ref.watch(selectedRegimentIdProvider);
+
     return ListTile(
       title: Text(regiment.title),
+      selected: selectedRegimentId == regiment.id,
       enabled: regiment.description != null,
+      onTap:
+          () => ref
+              .read(selectedRegimentIdProvider.notifier)
+              .updateToggle(regiment.id),
     );
   }
 }

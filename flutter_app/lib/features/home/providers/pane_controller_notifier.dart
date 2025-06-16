@@ -10,9 +10,6 @@ class PaneNotifier extends Notifier<ResizableController> {
   @override
   build() {
     final controller = ResizableController();
-    controller.addListener(() {
-      print(controller.sizes);
-    });
 
     // controller.setSizes(const [
     //   ResizableSize.pixels(250),

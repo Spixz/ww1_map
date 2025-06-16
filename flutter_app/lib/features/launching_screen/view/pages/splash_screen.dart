@@ -6,6 +6,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const Scaffold(body: LoadingCircle()));
+    return MaterialApp(home: const Scaffold(body: CircularLoading()));
   }
 }

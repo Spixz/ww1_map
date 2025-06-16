@@ -30,8 +30,9 @@
   "VALIDATION": "",
   "ErrorMissingField": "The field {} is missing.",
 
-  "SNACKBARS": "",
+  "ERRORS": "",
   "Error": "Error",
+  "AnErrorOccured": "An error occurred",
   "unexpectedErrorHasOccurred": "An unexpected error occurred",
   "expectedErrorHasOccurred": "An expected error occurred"
 }

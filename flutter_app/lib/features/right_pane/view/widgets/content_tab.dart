@@ -29,10 +29,7 @@ class RightPaneContentTab extends ConsumerWidget {
           ),
           Expanded(
             child: TabBarView(
-              children: const [
-                EventsListview(),
-                RegimentDescription(),
-              ],
+              children: [EventsListView(), RegimentDescription()],
             ),
           ),
         ],

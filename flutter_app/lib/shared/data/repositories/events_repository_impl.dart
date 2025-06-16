@@ -35,70 +35,73 @@ class EventsRepositoryImpl extends EventsRepository {
     if (regimentId != null) {
       pipeline.addStage(Match({'regiment_id': regimentId}));
     }
-    if (interval != null) {
-      pipeline
-          .addStage(
-            Match({
-              'start_date': {r'$gte': interval.start},
-            }),
-          )
-          .addStage(
-            Match({
-              'start_date': {r'$lte': interval.end},
-            }),
-          );
-    }
-    if (bounds != null) {
-      pipeline.addStage(
-        SetStage({
-          'allPoints': {
-            r'$switch': {
-              'branches': [
-                {
-                  'case': {r'$isArray': r'$coordinates'},
-                  'then': r'$coordinates',
-                },
-                {
-                  'case': {
-                    r'$and': [
-                      {r'$isArray': r'$coordinates.departure_point'},
-                      {r'$isArray': r'$coordinates.arrival_point'},
-                    ],
-                  },
-                  'then': {
-                    r'$concatArrays': [
-                      r'$coordinates.departure_point',
-                      r'$coordinates.arrival_point',
-                    ],
-                  },
-                },
-              ],
-              'default': [],
-            },
-          },
-        }),
-      );
-      pipeline.addStage(Unwind(Field('allPoints')));
-      pipeline.addStage(
-        Match({
-          'allPoints.coordinates': {
-            r'$geoWithin': {
-              r'$box': [bounds.bottomRight.toList, bounds.topLeft.toList],
-            },
-          },
-        }),
-      );
+    // if (interval != null) {
+    //   pipeline
+    //       .addStage(
+    //         Match({
+    //           'start_date': {r'$gte': interval.start},
+    //         }),
+    //       )
+    //       .addStage(
+    //         Match({
+    //           'start_date': {r'$lte': interval.end},
+    //         }),
+    //       );
+    // }
+    // if (bounds != null) {
+    //   pipeline.addStage(
+    //     SetStage({
+    //       'allPoints': {
+    //         r'$switch': {
+    //           'branches': [
+    //             {
+    //               'case': {r'$isArray': r'$coordinates'},
+    //               'then': r'$coordinates',
+    //             },
+    //             {
+    //               'case': {
+    //                 r'$and': [
+    //                   {r'$isArray': r'$coordinates.departure_point'},
+    //                   {r'$isArray': r'$coordinates.arrival_point'},
+    //                 ],
+    //               },
+    //               'then': {
+    //                 r'$concatArrays': [
+    //                   r'$coordinates.departure_point',
+    //                   r'$coordinates.arrival_point',
+    //                 ],
+    //               },
+    //             },
+    //           ],
+    //           'default': [],
+    //         },
+    //       },
+    //     }),
+    //   );
+    //   pipeline.addStage(Unwind(Field('allPoints')));
+    //   pipeline.addStage(
+    //     Match({
+    //       'allPoints.coordinates': {
+    //         r'$geoWithin': {
+    //           r'$box': [bounds.bottomRight.toList, bounds.topLeft.toList],
+    //         },
+    //       },
+    //     }),
+    //   );
 
-      pipeline.addStage(
-        Group(id: Field('_id'), fields: {'doc': First(Var.root)}),
-      );
-      pipeline.addStage(ReplaceRoot(Field('doc')));
-    }
-    if (startAt != null) {
+    //   pipeline.addStage(
+    //     Group(id: Field('_id'), fields: {'doc': First(Var.root)}),
+    //   );
+    //   pipeline.addStage(ReplaceRoot(Field('doc')));
+    // }
+    if (startAt != null && startAt != 0) {
       pipeline.addStage(Skip(startAt));
     }
     pipeline.addStage(Limit(limit));
 
+    // print(pipeline.build());
+    print("reposiotyEvents.getEvents() call");
+    // print((await collection.aggregateToStream(pipeline.build()).toList()).length);
     final result =
         await collection.aggregateToStream(pipeline.build()).toList();
     return result.map(WarEvent.fromJsonBuilder).toList();

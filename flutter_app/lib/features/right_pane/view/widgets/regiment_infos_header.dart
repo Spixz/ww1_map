@@ -23,7 +23,7 @@ class RegimentInfosHeader extends ConsumerWidget {
       child: selectedRegiment.when(
         data: (Regiment? regiment) => _Header(regiment),
         error: (_, __) => Center(child: Text(context.tr("Error"))),
-        loading: () => LoadingCircle(),
+        loading: () => CircularLoading(),
       ),
     );
   }
@@ -107,7 +107,7 @@ class _PdfButton extends ConsumerWidget {
           ),
         );
       },
-      orElse: () => LoadingCircle(),
+      orElse: () => CircularLoading(),
     );
   }
 }

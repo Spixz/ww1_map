@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoadingCircle extends StatelessWidget {
-  const LoadingCircle({super.key});
+class CircularLoading extends StatelessWidget {
+  const CircularLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
