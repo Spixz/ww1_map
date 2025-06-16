@@ -6,6 +6,7 @@ The list is saved in `regiments_list.json`.
 For each regiment history listed in `regiments_list.json`, fetch the URL of every scanned page
 and store the results in `regiments_complet.json`.
 For some regiments in this list (+3 batches), the PDFs were retrieved manually.
+`uv sync && uv run fetch_pages.py`
 
 The following regiments do not have a PDF file. The photo scans need to be used directly:
 - History of the 12th Infantry Regiment

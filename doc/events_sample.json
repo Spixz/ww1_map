@@ -1,0 +1,80 @@
+[
+  {
+    "_id": "ObjectId",
+    "event_kind": "Troop movement",
+    "start_date": "DateTime",
+    "end_date": "DateTime",
+    "movement_type": "String",
+    "executing_unit": "String",
+    "departure_point": "String",
+    "arrival_point": "String",
+    "description": "String",
+    "title": "String",
+    "document_source": "String",
+    "document_source_page": "Integer",
+    "regiment_id": "ObjectId",
+    "coordinates": {
+      "departure_point": [
+        {
+          "name": "String",
+          "coordinates": {
+            "type": "String (GeoJSON)",
+            "coordinates": ["Longitude", "Latitude"]
+          }
+        }
+      ],
+      "arrival_point": [
+        {
+          "name": "String",
+          "coordinates": {
+            "type": "String (GeoJSON)",
+            "coordinates": ["Longitude", "Latitude"]
+          }
+        },
+        {
+          "name": "String",
+          "coordinates": {
+            "type": "String (GeoJSON)",
+            "coordinates": ["Longitude", "Latitude"]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "_id": "ObjectId",
+    "event_kind": "Military event",
+    "start_date": "DateTime",
+    "end_date": "null",
+    "location": "String",
+    "engagement_type": "String",
+    "order": "String",
+    "target": "String",
+    "executing_unit": "String",
+    "description": "String",
+    "title": "String",
+    "document_source": "String",
+    "document_source_page": "Integer",
+    "regiment_id": "ObjectId",
+    "coordinates": [
+      {
+        "name": "String",
+        "coordinates": {
+          "type": "String (GeoJSON)",
+          "coordinates": ["Longitude", "Latitude"]
+        }
+      }
+    ]
+  },
+  {
+    "_id": "ObjectId",
+    "event_kind": "Political event",
+    "start_date": "DateTime",
+    "end_date": "null",
+    "title": "String",
+    "description": "String",
+    "document_source": "String",
+    "document_source_page": "Integer",
+    "regiment_id": "ObjectId"
+  }
+]
