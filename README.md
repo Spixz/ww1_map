@@ -41,6 +41,7 @@ These were **handwritten on the frontlines**, often under harsh and improvised c
     <img src="doc/jmo.png" width="100%" />
   </a>
 </p>
+
 [Examples of JMOs](https://www.memoiredeshommes.sga.defense.gouv.fr/fr/arkotheque/visionneuse/visionneuse.php?arko=YToxMDp7czoxMDoidHlwZV9mb25kcyI7czo3OiJhcmtvX2lyIjtzOjg6ImltZ190eXBlIjtzOjM6ImpwZyI7czo0OiJyZWYwIjtzOjE6IjEiO3M6NDoicmVmMSI7czoxOiI2IjtzOjQ6InJlZjIiO2k6NztzOjQ6InJlZjMiO3M6NzE6IjFHTS9KVU5JVEVTMTQxOC9MT1QwMS8yNl9OXzU3MV8wMDEvU0hER1JfX0dSXzI2X05fNTcxX18wMDFfXzAwMDFfX1QuSlBHIjtzOjQ6InJlZjQiO3M6NzE6IjFHTS9KVU5JVEVTMTQxOC9MT1QwMS8yNl9OXzU3MV8wMDEvU0hER1JfX0dSXzI2X05fNTcxX18wMDFfXzAwMzRfX1QuSlBHIjtzOjE4OiJpZF9hcmtfZWFkX2ZhbWlsbGUiO2k6MDtzOjE2OiJ2aXNpb25uZXVzZV9odG1sIjtiOjE7czoyMToidmlzaW9ubmV1c2VfaHRtbF9tb2RlIjtzOjQ6InByb2QiO30=#uielem_move=0%2C0&uielem_zoom=100), [Full list](https://www.memoiredeshommes.sga.defense.gouv.fr/fr/article.php?larub=2&titre=journaux-des-unites-engagees-dans-la-premiere-guerre-mondiale)
 
 After the war, mostly between **1919 and 1920**, [**regimental histories**](https://argonnaute.parisnanterre.fr/ark:/14707/sd32rc9tfhj4) were published, often written by former officers or military historians.  
@@ -50,6 +51,7 @@ They synthesize the JMOs, enhance them with strategic context, maps, and narrati
     <img src="doc/regiment_history.png" width="100%" />
   </a>
 </p>
+
 [Examples of regimental histories](https://argonnaute.parisnanterre.fr/media/ec6574a6-6a63-4dcb-805d-a384f8e4e23e.pdf), [Full list](https://argonnaute.parisnanterre.fr/ark:/14707/5v76d8132s4h)
 
 Each regiment has its own historical record, from which events are extracted.
