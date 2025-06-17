@@ -10,8 +10,10 @@ abstract class EventsRepository {
   Future<List<WarEvent>> getEvents({
     ObjectId? regimentId,
     DateInterval? interval,
+    DateTime? after,
+    DateTime? before,
     RectCoordinates? bounds,
-    int? startAt,
+    int? offset,
     required int limit,
   });
 }

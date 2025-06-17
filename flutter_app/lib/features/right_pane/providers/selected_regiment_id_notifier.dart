@@ -11,5 +11,8 @@ class SelectedRegimentIdNotifier extends Notifier<ObjectId?> {
 
   void update(ObjectId? id) => state = id;
 
-  void updateToggle(ObjectId? id) => state = (id == state) ? null : id;
+  ObjectId? updateToggle(ObjectId? id) {
+    state = (id == state) ? null : id;
+    return state;
+  }
 }

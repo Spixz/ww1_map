@@ -16,4 +16,7 @@ class DateInterval {
 
   DateTime get date => end;
   DateTime get tommorow => end.copyWith(hour: 23, minute: 59, second: 59);
+
+  @override
+  String toString() => "start: $start / end: $end";
 }

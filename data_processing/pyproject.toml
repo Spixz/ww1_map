@@ -14,4 +14,5 @@ members = [
     "tools/pdf_to_markdown",
     "tools/extract_events_from_document",
     "tools/lamber93_to_latlong",
+    "tools/translate_db",
 ]

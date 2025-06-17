@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:ww1_map/features/right_pane/providers/events_notifier.dart';
 import 'package:ww1_map/features/right_pane/providers/right_pane_notifier.dart';
-import 'package:ww1_map/features/right_pane/providers/selected_regiment_id_notifier.dart';
 import 'package:ww1_map/features/right_pane/view/pages/all_events_pane.dart';
 import 'package:ww1_map/features/right_pane/view/pages/regiment_pane.dart';
 import 'package:ww1_map/features/right_pane/view/widgets/dragabble_bar.dart';
@@ -19,7 +19,7 @@ class RightPaneScreen extends ConsumerStatefulWidget {
 class _UnitsPageState extends ConsumerState<RightPaneScreen> {
   @override
   Widget build(BuildContext context) {
-    final selectedRegimentId = ref.watch(selectedRegimentIdProvider);
+    final eventsMode = ref.watch(eventsListModeProvider);
     final rightPane = ref.watch(rightPaneNotifierProvider);
 
     return Stack(
@@ -37,7 +37,7 @@ class _UnitsPageState extends ConsumerState<RightPaneScreen> {
             boxShadow: [BoxShadow(blurRadius: 20, offset: Offset(-3, 3))],
           ),
           child:
-              (selectedRegimentId == null) ? AllEventsPane() : RegimentPane(),
+              (eventsMode == EventsListMode.free ) ? AllEventsPane() : RegimentPane(),
         ),
         SizedBox(height: context.height, child: Center(child: DragabbleBar())),
       ],

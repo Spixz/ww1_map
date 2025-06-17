@@ -16,6 +16,12 @@ WarEvent _$WarEventFromJson(Map<String, dynamic> json) => WarEvent(
   documentSourcePage: (json['document_source_page'] as num).toInt(),
   startDate: dynamicToDateTime(json['start_date']),
   endDate: dynamicToDateTime(json['end_date']),
+  coordinatesForMap:
+      json['coordinates_for_map'] == null
+          ? null
+          : GpsCoordinates.fromJson(
+            json['coordinates_for_map'] as Map<String, dynamic>,
+          ),
 );
 
 Map<String, dynamic> _$WarEventToJson(WarEvent instance) => <String, dynamic>{
@@ -28,6 +34,7 @@ Map<String, dynamic> _$WarEventToJson(WarEvent instance) => <String, dynamic>{
   'document_source_page': instance.documentSourcePage,
   'start_date': instance.startDate?.toIso8601String(),
   'end_date': instance.endDate?.toIso8601String(),
+  'coordinates_for_map': instance.coordinatesForMap,
 };
 
 const _$EventKindEnumMap = {

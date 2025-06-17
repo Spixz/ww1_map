@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:ww1_map/features/left_pane/providers/left_pane_notifier.dart';
 import 'package:ww1_map/features/right_pane/providers/right_pane_notifier.dart';
 import 'package:ww1_map/features/timeline/domain/models/date_interval.dart';
 import 'package:ww1_map/features/timeline/providers/selected_date_provider.dart';
@@ -22,14 +23,24 @@ class _TimelisteScreenState extends ConsumerState<TimelineScreen> {
   @override
   Widget build(BuildContext context) {
     final selectedDate = ref.watch(selectedDateProvider);
+    final leftPane = ref.watch(leftPaneNotifierProvider);
     final rightPane = ref.watch(rightPaneNotifierProvider);
-    final widthPadding = 20.0;
     final int totalDays = endAt.difference(startAt).inDays;
+    final double paddingWithoutPane = 20;
+
+    double leftPadding = leftPane.enabled ? 312 : paddingWithoutPane;
+    double width =
+        context.width - rightPane.width - leftPadding - paddingWithoutPane;
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: widthPadding, vertical: 10),
+      margin: EdgeInsets.only(
+        left: leftPadding,
+        top: 10,
+        right: paddingWithoutPane,
+        bottom: 10,
+      ),
       padding: EdgeInsets.only(top: 10),
-      width: context.width - rightPane.width - widthPadding * 2,
+      width: width,
       height: 113,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -45,9 +56,10 @@ class _TimelisteScreenState extends ConsumerState<TimelineScreen> {
             onDragCompleted: (_, handlerIndex, __) {
               final index = (handlerIndex as double).toInt();
               final selectedDate = startAt.add(Duration(days: index));
+
               ref
                   .read(selectedDateProvider.notifier)
-                  .state = DateInterval.todayUntil(endAt: selectedDate);
+                  .state = DateInterval.today(day: selectedDate);
             },
             tooltip: FlutterSliderTooltip(
               // custom: (value) {

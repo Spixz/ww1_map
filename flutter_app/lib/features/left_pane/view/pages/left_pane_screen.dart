@@ -91,10 +91,9 @@ class _RegimentCard extends ConsumerWidget {
       title: Text(regiment.title),
       selected: selectedRegimentId == regiment.id,
       enabled: regiment.description != null,
-      onTap:
-          () => ref
-              .read(selectedRegimentIdProvider.notifier)
-              .updateToggle(regiment.id),
+      onTap: () {
+        ref.read(selectedRegimentIdProvider.notifier).updateToggle(regiment.id);
+      },
     );
   }
 }

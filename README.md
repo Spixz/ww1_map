@@ -10,7 +10,7 @@ This project was inspired by data visualizations like **Ventusky**, with the goa
 > 🛠️ The project is still under development.
 
 
-[![Windows](https://img.shields.io/badge/Windows-download-blue?logo=windows)](https://your-link.com/windows-download)  [![macOS](https://img.shields.io/badge/macOS-download-black?logo=apple)](https://your-link.com/mac-download)  [![Linux](https://img.shields.io/badge/Linux-download-yellow?logo=linux)](https://your-link.com/linux-download)
+[![macOS](https://img.shields.io/badge/macOS-download-black?logo=apple)](https://drive.google.com/file/d/1xMSqRBsJo_3auIw7nZuqdHmjXiWAgFlb/view?usp=sharing)
 
 ---
 
@@ -31,7 +31,7 @@ This project was inspired by data visualizations like **Ventusky**, with the goa
 
 
 
-## Data Processing
+## Data Source
 
 During World War I, French regiments maintained [**Journaux de Marche et Opérations (JMO)**](https://www.memoiredeshommes.sga.defense.gouv.fr/fr/article.php?larub=2&titre=journaux-des-unites-engagees-dans-la-premiere-guerre-mondiale), or war diaries, where they recorded daily operations: troop movements, engagements, reconnaissance, positions, losses—sometimes with maps or sketches.  
 These were **handwritten on the frontlines**, often under harsh and improvised conditions.
@@ -45,7 +45,7 @@ These were **handwritten on the frontlines**, often under harsh and improvised c
 [Examples of JMOs](https://www.memoiredeshommes.sga.defense.gouv.fr/fr/arkotheque/visionneuse/visionneuse.php?arko=YToxMDp7czoxMDoidHlwZV9mb25kcyI7czo3OiJhcmtvX2lyIjtzOjg6ImltZ190eXBlIjtzOjM6ImpwZyI7czo0OiJyZWYwIjtzOjE6IjEiO3M6NDoicmVmMSI7czoxOiI2IjtzOjQ6InJlZjIiO2k6NztzOjQ6InJlZjMiO3M6NzE6IjFHTS9KVU5JVEVTMTQxOC9MT1QwMS8yNl9OXzU3MV8wMDEvU0hER1JfX0dSXzI2X05fNTcxX18wMDFfXzAwMDFfX1QuSlBHIjtzOjQ6InJlZjQiO3M6NzE6IjFHTS9KVU5JVEVTMTQxOC9MT1QwMS8yNl9OXzU3MV8wMDEvU0hER1JfX0dSXzI2X05fNTcxX18wMDFfXzAwMzRfX1QuSlBHIjtzOjE4OiJpZF9hcmtfZWFkX2ZhbWlsbGUiO2k6MDtzOjE2OiJ2aXNpb25uZXVzZV9odG1sIjtiOjE7czoyMToidmlzaW9ubmV1c2VfaHRtbF9tb2RlIjtzOjQ6InByb2QiO30=#uielem_move=0%2C0&uielem_zoom=100), [Full list](https://www.memoiredeshommes.sga.defense.gouv.fr/fr/article.php?larub=2&titre=journaux-des-unites-engagees-dans-la-premiere-guerre-mondiale)
 
 After the war, mostly between **1919 and 1920**, [**regimental histories**](https://argonnaute.parisnanterre.fr/ark:/14707/sd32rc9tfhj4) were published, often written by former officers or military historians.  
-They synthesize the JMOs, enhance them with strategic context, maps, and narrative accounts.
+They synthesize the JMOs, enhance them with strategic context, maps, and narrative accounts. This project is based on this second type of document.
 <p align="center">
   <a href="https://github.com/Spixz/ww1_map/blob/main/doc/regiment_history.png" target="_blank">
     <img src="doc/regiment_history.png" width="100%" />
@@ -53,8 +53,6 @@ They synthesize the JMOs, enhance them with strategic context, maps, and narrati
 </p>
 
 [Examples of regimental histories](https://argonnaute.parisnanterre.fr/media/ec6574a6-6a63-4dcb-805d-a384f8e4e23e.pdf), [Full list](https://argonnaute.parisnanterre.fr/ark:/14707/5v76d8132s4h)
-
-Each regiment has its own historical record, from which events are extracted.
 
 
 

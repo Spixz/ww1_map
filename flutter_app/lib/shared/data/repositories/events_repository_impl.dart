@@ -24,80 +24,103 @@ class EventsRepositoryImpl extends EventsRepository {
   Future<List<WarEvent>> getEvents({
     ObjectId? regimentId,
     DateInterval? interval,
+    DateTime? after,
+    DateTime? before,
     RectCoordinates? bounds,
-    int? startAt,
+    int? offset,
     required int limit,
   }) async {
     final collection = _mongoDatabase.collection("events");
 
     final pipeline = AggregationPipelineBuilder();
+    pipeline.addStage(
+      Match({
+        "start_date": {r"$ne": null},
+      }),
+    );
 
     if (regimentId != null) {
       pipeline.addStage(Match({'regiment_id': regimentId}));
     }
-    // if (interval != null) {
-    //   pipeline
-    //       .addStage(
-    //         Match({
-    //           'start_date': {r'$gte': interval.start},
-    //         }),
-    //       )
-    //       .addStage(
-    //         Match({
-    //           'start_date': {r'$lte': interval.end},
-    //         }),
-    //       );
-    // }
-    // if (bounds != null) {
-    //   pipeline.addStage(
-    //     SetStage({
-    //       'allPoints': {
-    //         r'$switch': {
-    //           'branches': [
-    //             {
-    //               'case': {r'$isArray': r'$coordinates'},
-    //               'then': r'$coordinates',
-    //             },
-    //             {
-    //               'case': {
-    //                 r'$and': [
-    //                   {r'$isArray': r'$coordinates.departure_point'},
-    //                   {r'$isArray': r'$coordinates.arrival_point'},
-    //                 ],
-    //               },
-    //               'then': {
-    //                 r'$concatArrays': [
-    //                   r'$coordinates.departure_point',
-    //                   r'$coordinates.arrival_point',
-    //                 ],
-    //               },
-    //             },
-    //           ],
-    //           'default': [],
-    //         },
-    //       },
-    //     }),
-    //   );
-    //   pipeline.addStage(Unwind(Field('allPoints')));
-    //   pipeline.addStage(
-    //     Match({
-    //       'allPoints.coordinates': {
-    //         r'$geoWithin': {
-    //           r'$box': [bounds.bottomRight.toList, bounds.topLeft.toList],
-    //         },
-    //       },
-    //     }),
-    //   );
+    if (after != null) {
+      pipeline.addStage(
+        Match({
+          'start_date': {r'$gte': after},
+        }),
+      );
+    }
+    if (before != null) {
+      pipeline.addStage(
+        Match({
+          'start_date': {r'$lte': before},
+        }),
+      );
+    }
+    //TODO : remove intervals form parameters
+    if (interval != null) {
+      pipeline
+          .addStage(
+            Match({
+              'start_date': {r'$gte': interval.start},
+            }),
+          )
+          .addStage(
+            Match({
+              'start_date': {r'$lte': interval.end},
+            }),
+          );
+    }
+    if (bounds != null) {
+      pipeline.addStage(
+        SetStage({
+          'allPoints': {
+            r'$switch': {
+              'branches': [
+                {
+                  'case': {r'$isArray': r'$coordinates'},
+                  'then': r'$coordinates',
+                },
+                {
+                  'case': {
+                    r'$and': [
+                      {r'$isArray': r'$coordinates.departure_point'},
+                      {r'$isArray': r'$coordinates.arrival_point'},
+                    ],
+                  },
+                  'then': {
+                    r'$concatArrays': [
+                      r'$coordinates.departure_point',
+                      r'$coordinates.arrival_point',
+                    ],
+                  },
+                },
+              ],
+              'default': [],
+            },
+          },
+        }),
+      );
+      pipeline.addStage(Unwind(Field('allPoints')));
+      pipeline.addStage(
+        Match({
+          'allPoints.coordinates': {
+            r'$geoWithin': {
+              r'$box': [bounds.bottomRight.toList, bounds.topLeft.toList],
+            },
+          },
+        }),
+      );
 
-    //   pipeline.addStage(
-    //     Group(id: Field('_id'), fields: {'doc': First(Var.root)}),
-    //   );
-    //   pipeline.addStage(ReplaceRoot(Field('doc')));
-    // }
-    if (startAt != null && startAt != 0) {
-      pipeline.addStage(Skip(startAt));
+      pipeline.addStage(
+        Group(id: Field('_id'), fields: {'doc': First(Var.root)}),
+      );
+      pipeline.addStage(ReplaceRoot(Field('doc')));
+    }
+    if (offset != null && offset != 0) {
+      pipeline.addStage(Skip(offset));
     }
     pipeline.addStage(Limit(limit));
+    pipeline.addStage(Sort({'start_date': 1}));
 
     // print(pipeline.build());
     print("reposiotyEvents.getEvents() call");

@@ -23,6 +23,7 @@ void main() {
       ObjectId.fromHexString("6846a945a71a3e29f15d8793"),
     );
     expect(result, isNotNull);
+    expect(result?.startDate, isNotNull);
   });
 
   test('Test get events by regiment id', () async {

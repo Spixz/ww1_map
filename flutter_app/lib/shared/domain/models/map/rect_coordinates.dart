@@ -9,4 +9,19 @@ class RectCoordinates {
 
   final GpsCoordinates topLeft;
   final GpsCoordinates bottomRight;
+
+  bool contain(GpsCoordinates point) {
+    final minLat = bottomRight.latitude;
+    final maxLat = topLeft.latitude;
+    final minLng = topLeft.longitude;
+    final maxLng = bottomRight.longitude;
+
+    return point.latitude >= minLat &&
+        point.latitude <= maxLat &&
+        point.longitude >= minLng &&
+        point.longitude <= maxLng;
+  }
+
+  @override
+  String toString() => "topLeft: $topLeft / bottomRight: $bottomRight";
 }

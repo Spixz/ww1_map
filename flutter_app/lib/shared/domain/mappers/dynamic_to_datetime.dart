@@ -1,2 +1,3 @@
-DateTime? dynamicToDateTime(dynamic value) =>
-    value != null ? value as DateTime : null;
+DateTime? dynamicToDateTime(dynamic value) {
+  return value != null ? value as DateTime : null;
+}

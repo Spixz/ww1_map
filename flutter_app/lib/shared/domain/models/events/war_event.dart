@@ -6,6 +6,7 @@ import 'package:ww1_map/shared/domain/mappers/dynamic_to_datetime.dart';
 import 'package:ww1_map/shared/domain/mappers/object_id_from_json.dart';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:ww1_map/shared/domain/models/events/gps_coordinates.dart';
 import 'package:ww1_map/shared/domain/models/events/military_event.dart';
 import 'package:ww1_map/shared/domain/models/events/political_event.dart';
 import 'package:ww1_map/shared/domain/models/events/unit_movement_event.dart';
@@ -24,6 +25,7 @@ class WarEvent {
     required this.documentSourcePage,
     this.startDate,
     this.endDate,
+    this.coordinatesForMap,
   });
 
   @JsonKey(name: "_id", fromJson: objectIdFromJson)
@@ -42,6 +44,7 @@ class WarEvent {
   final DateTime? startDate;
   @JsonKey(fromJson: dynamicToDateTime)
   final DateTime? endDate;
+  GpsCoordinates? coordinatesForMap;
 
   factory WarEvent.fromJson(Map<String, dynamic> json) =>
       _$WarEventFromJson(json);
@@ -52,52 +55,9 @@ class WarEvent {
       EventKind.political => PoliticalEvent.fromJson(json),
       EventKind.military => MilitaryEvent.fromJson(json),
       EventKind.unitMovement => UnitMovementEvent.fromJson(json),
-      EventKind.other => WarEvent.fromJson(json)
+      EventKind.other => WarEvent.fromJson(json),
     };
   }
 
   Map<String, dynamic> toJson() => _$WarEventToJson(this);
 }
-// {
-// 	"event_kind": "Événement politique",
-// 	"start_date", ("%Y-%m-%d %H:%M:%S")
-// 	"end_date", ("%Y-%m-%d %H:%M:%S") (si applicable)
-// 	"description", (String)
-// 	"title", (String)
-// 	"document_source", (String)
-// 	"document_source_page" (int)
-// }
-
-// Les mouvements de troupes :
-// {
-// 	"event_kind": "Mouvement de troupes",
-// 	"start_date", ("%Y-%m-%d %H:%M:%S")
-// 	"end_date", (si applicable)
-// 	"description", (String)
-// 	"title", (String)
-// 	"movement_type", (String)
-// 	"executing_unit", (String)
-// 	"departure_point", (String)
-// 	"arrival_point", (String)
-// 	"document_source", (String)
-// 	"document_source_page" (int)
-// }
-
-// Les événements militaire:
-// {
-// 	"event_kind": "Événement militaire",
-// 	"start_date", ("%Y-%m-%d %H:%M:%S")
-// 	"end_date", (si applicable)
-// 	"location", (String)
-// 	"engagement_type", (String) (affrontement, fortification, ...)
-// 	"commander", (String)
-// 	"executing_unit", (String)
-// 	"order", (String)
-// 	"target", (String) (si applicable)
-// 	"outcome", (String) (si applicable)
-// 	"description", (String)
-// 	"title", (String)
-// 	"document_source", (String)
-// 	"document_source_page" (int)
-//  }
-// """

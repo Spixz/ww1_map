@@ -1,0 +1,26 @@
+[project]
+name = "translate-db"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Cyril Mammar", email = "mammar.cyril@epitech.eu" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "dnspython>=2.7.0",
+    "pymongo>=4.13.0",
+    "pytest>=8.3.5",
+    "common",
+    "tqdm>=4.67.1",
+]
+
+[tool.uv.sources]
+common = { workspace = true }
+
+[project.scripts]
+translate-db = "translate_db:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
