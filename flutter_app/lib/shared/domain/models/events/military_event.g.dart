@@ -8,36 +8,35 @@ part of 'military_event.dart';
 
 MilitaryEvent _$MilitaryEventFromJson(Map<String, dynamic> json) =>
     MilitaryEvent(
-        id: objectIdFromJson(json['_id'] as ObjectId),
-        regimentId: objectIdFromJson(json['regiment_id'] as ObjectId),
-        eventKind: EventKind.fromJson(json['event_kind'] as String),
-        title: json['title'] as String,
-        description: json['description'] as String,
-        documentSource: json['document_source'] as String,
-        documentSourcePage: (json['document_source_page'] as num).toInt(),
-        startDate: dynamicToDateTime(json['start_date']),
-        endDate: dynamicToDateTime(json['end_date']),
-        location: json['location'] as String?,
-        engagementType: json['engagement_type'] as String?,
-        commander: json['commander'] as String?,
-        executionUnit: json['execution_unit'] as String?,
-        order: json['order'] as String?,
-        target: json['target'] as String?,
-        outcome: json['outcome'] as String?,
-        coordinates:
-            (json['coordinates'] as List<dynamic>?)
-                ?.map(
-                  (e) =>
-                      WarEventCoordinates.fromJson(e as Map<String, dynamic>),
-                )
-                .toList(),
-      )
-      ..coordinatesForMap =
+      id: objectIdFromJson(json['_id'] as ObjectId),
+      regimentId: objectIdFromJson(json['regiment_id'] as ObjectId),
+      eventKind: EventKind.fromJson(json['event_kind'] as String),
+      title: json['title'] as String,
+      description: json['description'] as String,
+      documentSource: json['document_source'] as String,
+      documentSourcePage: (json['document_source_page'] as num).toInt(),
+      startDate: dynamicToDateTime(json['start_date']),
+      endDate: dynamicToDateTime(json['end_date']),
+      coordinatesForMap:
           json['coordinates_for_map'] == null
               ? null
               : GpsCoordinates.fromJson(
                 json['coordinates_for_map'] as Map<String, dynamic>,
-              );
+              ),
+      location: json['location'] as String?,
+      engagementType: json['engagement_type'] as String?,
+      commander: json['commander'] as String?,
+      executionUnit: json['execution_unit'] as String?,
+      order: json['order'] as String?,
+      target: json['target'] as String?,
+      outcome: json['outcome'] as String?,
+      coordinates:
+          (json['coordinates'] as List<dynamic>?)
+              ?.map(
+                (e) => WarEventCoordinates.fromJson(e as Map<String, dynamic>),
+              )
+              .toList(),
+    );
 
 Map<String, dynamic> _$MilitaryEventToJson(MilitaryEvent instance) =>
     <String, dynamic>{

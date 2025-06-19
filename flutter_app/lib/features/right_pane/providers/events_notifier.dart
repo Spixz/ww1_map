@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ww1_map/features/map/providers/map_informations_notifier.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
+import 'package:ww1_map/features/map/providers/map_informations_notifier.dart';
 import 'package:ww1_map/features/right_pane/providers/selected_regiment_id_notifier.dart';
 import 'package:ww1_map/features/timeline/providers/selected_date_provider.dart';
 import 'package:ww1_map/shared/data/providers/events_repository_impl_provider.dart';
@@ -98,5 +99,10 @@ class EventsNotifier extends AsyncNotifier<List<WarEvent>> {
       lastFetchDoneForScrollPosition = position;
       loadMore();
     }
+  }
+
+  int? getEventPositionInList({required ObjectId id}) {
+    final index = state.value?.indexWhere((event) => event.id == id);
+    return (index != null && index != -1) ? index : null;
   }
 }

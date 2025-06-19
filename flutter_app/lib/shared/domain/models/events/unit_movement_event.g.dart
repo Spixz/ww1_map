@@ -8,32 +8,32 @@ part of 'unit_movement_event.dart';
 
 UnitMovementEvent _$UnitMovementEventFromJson(Map<String, dynamic> json) =>
     UnitMovementEvent(
-        id: objectIdFromJson(json['_id'] as ObjectId),
-        regimentId: objectIdFromJson(json['regiment_id'] as ObjectId),
-        eventKind: EventKind.fromJson(json['event_kind'] as String),
-        title: json['title'] as String,
-        description: json['description'] as String,
-        documentSource: json['document_source'] as String,
-        documentSourcePage: (json['document_source_page'] as num).toInt(),
-        startDate: dynamicToDateTime(json['start_date']),
-        endDate: dynamicToDateTime(json['end_date']),
-        movementType: json['movement_type'] as String?,
-        executingUnit: json['executing_unit'] as String?,
-        departurePoint: json['departure_point'] as String?,
-        arrivalPoint: json['arrival_point'] as String?,
-        coordinates:
-            json['coordinates'] == null
-                ? null
-                : UnitMovementCoordinates.fromJson(
-                  json['coordinates'] as Map<String, dynamic>,
-                ),
-      )
-      ..coordinatesForMap =
+      id: objectIdFromJson(json['_id'] as ObjectId),
+      regimentId: objectIdFromJson(json['regiment_id'] as ObjectId),
+      eventKind: EventKind.fromJson(json['event_kind'] as String),
+      title: json['title'] as String,
+      description: json['description'] as String,
+      documentSource: json['document_source'] as String,
+      documentSourcePage: (json['document_source_page'] as num).toInt(),
+      startDate: dynamicToDateTime(json['start_date']),
+      endDate: dynamicToDateTime(json['end_date']),
+      coordinatesForMap:
           json['coordinates_for_map'] == null
               ? null
               : GpsCoordinates.fromJson(
                 json['coordinates_for_map'] as Map<String, dynamic>,
-              );
+              ),
+      movementType: json['movement_type'] as String?,
+      executingUnit: json['executing_unit'] as String?,
+      departurePoint: json['departure_point'] as String?,
+      arrivalPoint: json['arrival_point'] as String?,
+      coordinates:
+          json['coordinates'] == null
+              ? null
+              : UnitMovementCoordinates.fromJson(
+                json['coordinates'] as Map<String, dynamic>,
+              ),
+    );
 
 Map<String, dynamic> _$UnitMovementEventToJson(UnitMovementEvent instance) =>
     <String, dynamic>{

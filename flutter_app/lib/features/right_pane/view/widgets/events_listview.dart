@@ -7,6 +7,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ww1_map/common_widgets/centered_error.dart';
 import 'package:ww1_map/common_widgets/common_widgets_export.dart';
 import 'package:ww1_map/core/colors.dart';
+import 'package:ww1_map/features/map/providers/selected_event_provider.dart';
 import 'package:ww1_map/features/right_pane/providers/events_notifier.dart';
 import 'package:ww1_map/features/right_pane/view/widgets/event_infos.dart';
 import 'package:ww1_map/utils/extensions/datetime_extension.dart';
@@ -35,6 +36,20 @@ class _EventListViewState extends ConsumerState<EventsListView> {
   @override
   Widget build(BuildContext context) {
     final eventsList = ref.watch(eventsProvider);
+
+    ref.listen(selectedEventProvider, (_, selectedEvent) {
+      if (selectedEvent == null) return;
+      final eventPosition = ref
+          .read(eventsProvider.notifier)
+          .getEventPositionInList(id: selectedEvent.id!);
+
+      if (eventPosition != null) {
+        itemScrollController.scrollTo(
+          index: eventPosition,
+          duration: Duration(milliseconds: 500),
+        );
+      }
+    });
 
     return eventsList.when(
       data: (events) {
