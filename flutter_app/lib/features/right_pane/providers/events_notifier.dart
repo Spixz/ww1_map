@@ -2,20 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 import 'package:ww1_map/features/map/providers/map_informations_notifier.dart';
+import 'package:ww1_map/features/right_pane/providers/event_list_mode_provider.dart';
 import 'package:ww1_map/features/right_pane/providers/selected_regiment_id_notifier.dart';
 import 'package:ww1_map/features/timeline/providers/selected_date_provider.dart';
 import 'package:ww1_map/shared/data/providers/events_repository_impl_provider.dart';
+import 'package:ww1_map/shared/domain/enums/events_list_mode.dart';
 import 'package:ww1_map/shared/domain/models/events/war_event.dart';
 
-enum EventsListMode { free, regiment }
-
-final eventsListModeProvider = Provider((ref) {
-  final selectedRegimentId = ref.watch(selectedRegimentIdProvider);
-
-  return (selectedRegimentId == null)
-      ? EventsListMode.free
-      : EventsListMode.regiment;
-});
 
 final eventsProvider = AsyncNotifierProvider(EventsNotifier.new);
 

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ww1_map/shared/domain/models/ui/pane_state.dart';
 
-final rightPaneNotifierProvider = NotifierProvider(RightPaneNotifier.new);
+final rightPaneProvider = NotifierProvider(RightPaneNotifier.new);
 
 class RightPaneNotifier extends Notifier<PaneState> {
   @override

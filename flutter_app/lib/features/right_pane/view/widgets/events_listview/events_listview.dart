@@ -9,7 +9,7 @@ import 'package:ww1_map/common_widgets/common_widgets_export.dart';
 import 'package:ww1_map/core/colors.dart';
 import 'package:ww1_map/features/map/providers/selected_event_provider.dart';
 import 'package:ww1_map/features/right_pane/providers/events_notifier.dart';
-import 'package:ww1_map/features/right_pane/view/widgets/event_infos.dart';
+import 'package:ww1_map/features/right_pane/view/widgets/events_listview/event_infos.dart';
 import 'package:ww1_map/utils/extensions/datetime_extension.dart';
 
 class EventsListView extends ConsumerStatefulWidget {
@@ -28,8 +28,10 @@ class _EventListViewState extends ConsumerState<EventsListView> {
   void initState() {
     super.initState();
     itemPositionsListener.itemPositions.addListener(() {
-      final lastItem = itemPositionsListener.itemPositions.value.last;
-      ref.read(eventsProvider.notifier).updateScrollPosition(lastItem.index);
+      final lastItemDisplayed = itemPositionsListener.itemPositions.value.last;
+      ref
+          .read(eventsProvider.notifier)
+          .updateScrollPosition(lastItemDisplayed.index);
     });
   }
 
@@ -39,13 +41,13 @@ class _EventListViewState extends ConsumerState<EventsListView> {
 
     ref.listen(selectedEventProvider, (_, selectedEvent) {
       if (selectedEvent == null) return;
-      final eventPosition = ref
+      final selectedEventPosition = ref
           .read(eventsProvider.notifier)
           .getEventPositionInList(id: selectedEvent.id!);
 
-      if (eventPosition != null) {
+      if (selectedEventPosition != null) {
         itemScrollController.scrollTo(
-          index: eventPosition,
+          index: selectedEventPosition,
           duration: Duration(milliseconds: 500),
         );
       }
@@ -60,42 +62,36 @@ class _EventListViewState extends ConsumerState<EventsListView> {
             itemBuilder: (context, index) {
               final event = events[index];
 
-              if (index == 0) {
-                return Column(
-                  spacing: 15,
-                  children: [EventDate(event.startDate!), EventInfos(event)],
-                );
-              } else if (index > 0 && event.startDate != null) {
+              if (index > 0) {
                 final prevEvent = events[index - 1];
 
-                if (prevEvent.startDate != null &&
-                    !event.startDate!.isSameDay(prevEvent.startDate!)) {
-                  return Column(
-                    spacing: 15,
-                    children: [EventDate(event.startDate!), EventInfos(event)],
-                  );
+                if (event.startDate!.isSameDay(prevEvent.startDate!)) {
+                  return EventInfos(event);
                 }
               }
 
-              return EventInfos(event);
+              return Column(
+                spacing: 15,
+                children: [_DateHeader(event.startDate!), EventInfos(event)],
+              );
             },
             itemScrollController: itemScrollController,
             itemPositionsListener: itemPositionsListener,
           ),
         );
       },
-      error: (_, __) => CenteredError(),
+      error: (_, __) => CenteredMessage(message: context.tr("Error")),
       loading: () => CircularLoading(),
     );
   }
 }
 
-class EventDate extends ConsumerWidget {
-  const EventDate(this.date, {super.key});
+class _DateHeader extends StatelessWidget {
+  const _DateHeader(this.date);
   final DateTime date;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final formatter = DateFormat("d MMMM y");
 
     return FractionallySizedBox(

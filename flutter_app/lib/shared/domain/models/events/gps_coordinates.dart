@@ -9,7 +9,7 @@ class GpsCoordinates {
 
   GpsCoordinates({required this.longitude, required this.latitude});
 
-  GpsCoordinates.empty() : latitude = 0, longitude = 0;
+  GpsCoordinates.empty() : longitude = 0, latitude = 0;
 
   factory GpsCoordinates.fromJson(Map<String, dynamic> json) {
     final coords =

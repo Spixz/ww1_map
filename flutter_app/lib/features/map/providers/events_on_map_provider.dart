@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ww1_map/features/map/providers/map_informations_notifier.dart';
+import 'package:ww1_map/features/right_pane/providers/event_list_mode_provider.dart';
 import 'package:ww1_map/features/right_pane/providers/events_notifier.dart';
+import 'package:ww1_map/shared/domain/enums/events_list_mode.dart';
 import 'package:ww1_map/shared/domain/models/events/war_event.dart';
 import 'package:ww1_map/shared/domain/utils/flat_war_events.dart';
 
-final mapEventProvider = Provider<List<WarEvent>>((ref) {
+final eventsOnMapProvider = Provider<List<WarEvent>>((ref) {
   final eventsMode = ref.watch(eventsListModeProvider);
   final eventProvider = ref.watch(eventsProvider);
   final events = eventProvider.value ?? [];

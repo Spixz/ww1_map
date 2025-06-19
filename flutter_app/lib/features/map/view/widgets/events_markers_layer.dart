@@ -4,7 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 
-import 'package:ww1_map/features/map/providers/map_events_provider.dart';
+import 'package:ww1_map/features/map/providers/events_on_map_provider.dart';
 import 'package:ww1_map/features/map/providers/selected_event_provider.dart';
 import 'package:ww1_map/shared/domain/enums/event_kind.dart';
 import 'package:ww1_map/shared/domain/models/events/war_event.dart';
@@ -20,7 +20,7 @@ class EventsMarkersLayer extends ConsumerStatefulWidget {
 class _EventsMarkersLayerState extends ConsumerState<EventsMarkersLayer> {
   @override
   Widget build(BuildContext context) {
-    final events = ref.watch(mapEventProvider);
+    final events = ref.watch(eventsOnMapProvider);
 
     final markers =
         events

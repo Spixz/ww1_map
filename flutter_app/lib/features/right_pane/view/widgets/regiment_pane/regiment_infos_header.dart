@@ -1,7 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:ww1_map/common_widgets/common_widgets_export.dart';
 import 'package:ww1_map/core/colors.dart';
@@ -63,7 +63,7 @@ class _Header extends ConsumerWidget {
           alignment: Alignment.bottomLeft,
           child: Padding(
             padding: const EdgeInsets.only(left: 15, bottom: 15),
-            child: _PdfButton(),
+            child: _PdfButton(regiment!),
           ),
         ),
       ],
@@ -72,42 +72,33 @@ class _Header extends ConsumerWidget {
 }
 
 class _PdfButton extends ConsumerWidget {
-  const _PdfButton({super.key});
+  const _PdfButton(this.regiment);
+  final Regiment regiment;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final regimentProvider = ref.watch(selectedRegimentProvider);
+    final pdfAvailaible = regiment.medias.pdf != null;
+    final Color color = (pdfAvailaible) ? Colors.white : Colors.grey.shade600;
 
-    return regimentProvider.maybeWhen(
-      data: (Regiment? regiment) {
-        if (regiment == null) return Empty();
-
-        final pdfAvailaible = regiment.medias.pdf != null;
-        final Color color =
-            (pdfAvailaible) ? Colors.white : Colors.grey.shade600;
-
-        return InkWell(
-          onTap: () {
-            if (!pdfAvailaible) return;
-            ref
-                .read(pdfWindowNotifierProvider.notifier)
-                .openDocument(title: regiment.title, url: regiment.medias.pdf!);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            spacing: 5,
-            children: [
-              Icon(Icons.menu_book_outlined, size: 16, color: color),
-              Text(
-                context.tr("OriginalEdition"),
-                style: TextStyle(fontSize: 14, color: color),
-              ),
-            ],
-          ),
-        );
+    return InkWell(
+      onTap: () {
+        if (!pdfAvailaible) return;
+        ref
+            .read(pdfWindowNotifierProvider.notifier)
+            .openDocument(title: regiment.title, url: regiment.medias.pdf!);
       },
-      orElse: () => CircularLoading(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        spacing: 5,
+        children: [
+          Icon(Icons.menu_book_outlined, size: 16, color: color),
+          Text(
+            context.tr("OriginalEdition"),
+            style: TextStyle(fontSize: 14, color: color),
+          ),
+        ],
+      ),
     );
   }
 }

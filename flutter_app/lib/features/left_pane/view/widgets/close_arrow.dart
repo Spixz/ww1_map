@@ -21,11 +21,8 @@ class CloseArrow extends ConsumerWidget {
                 topRight: Radius.circular(12),
                 bottomRight: Radius.circular(12),
               ),
-              boxShadow: [
-                // BoxShadow(blurRadius: 20, offset: Offset(5, 5)),
-              ],
             ),
-            child: Icon(Icons.arrow_back_ios, size: 24,),
+            child: Icon(Icons.arrow_back_ios, size: 24),
           ),
         ),
       ),

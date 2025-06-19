@@ -2,7 +2,7 @@
   "APP": "",
   "AppLoadingFailed": "An error occurred while loading the application.",
 
-  "RIGHT-PANEL": "",
+  "RIGHT-PANE": "",
   "Events": "Events",
   "Description": "Description",
   "HeavyDocumentLoading": "The document is large and may take some time to load.",
@@ -34,5 +34,6 @@
   "Error": "Error",
   "AnErrorOccured": "An error occurred",
   "unexpectedErrorHasOccurred": "An unexpected error occurred",
-  "expectedErrorHasOccurred": "An expected error occurred"
+  "expectedErrorHasOccurred": "An expected error occurred",
+  "ErrorNoRegimentsFound": "Error: No regiment found"
 }

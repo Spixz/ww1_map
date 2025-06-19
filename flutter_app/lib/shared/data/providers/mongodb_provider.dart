@@ -6,5 +6,6 @@ final mongoDbProvider = FutureProvider((ref) async {
   final mongoUri = dotenv.get("MONGO_URI", fallback: "");
   final db = await Db.create(mongoUri);
   await db.open();
+  
   return db;
 });

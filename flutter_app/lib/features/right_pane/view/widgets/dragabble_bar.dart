@@ -13,9 +13,9 @@ class DragabbleBar extends ConsumerWidget {
       cursor: SystemMouseCursors.resizeLeftRight,
       child: GestureDetector(
         onPanUpdate: (DragUpdateDetails details) {
-          final actualWidth = ref.read(rightPaneNotifierProvider).width;
+          final actualWidth = ref.read(rightPaneProvider).width;
           ref
-              .read(rightPaneNotifierProvider.notifier)
+              .read(rightPaneProvider.notifier)
               .updateWidth(actualWidth - details.delta.dx);
         },
         child: Container(

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter_resizable_container/flutter_resizable_container.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mongo_dart/mongo_dart.dart';
+
 import 'package:ww1_map/shared/domain/enums/pane_position.dart';
 
 final paneNotifierProvider = NotifierProvider(PaneNotifier.new);

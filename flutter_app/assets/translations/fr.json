@@ -2,7 +2,7 @@
   "APP": "",
   "AppLoadingFailed": "Une erreur s'est produite durant le chargement de l'application.",
 
-  "RIGHT-PANEL": "",
+  "RIGHT-PANE": "",
   "Events": "Events",
   "Description": "Description",
   "HeavyDocumentLoading": "Le document est lourd, il peut prendre du temps à charger.",
@@ -34,5 +34,6 @@
   "Error": "Erreur",
   "AnErrorOccured": "Une erreur s’est produite",
   "unexpectedErrorHasOccurred": "Une erreur non attendue s'est produite",
-  "expectedErrorHasOccurred": "Une erreur attendue s'est produite"
+  "expectedErrorHasOccurred": "Une erreur attendue s'est produite",
+  "ErrorNoRegimentsFound": "Erreur : Aucun régiment trouvé"
 }

@@ -1,7 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+
 import 'package:ww1_map/features/left_pane/providers/left_pane_notifier.dart';
 import 'package:ww1_map/features/right_pane/providers/right_pane_notifier.dart';
 import 'package:ww1_map/features/timeline/domain/models/date_interval.dart';
@@ -24,7 +26,7 @@ class _TimelisteScreenState extends ConsumerState<TimelineScreen> {
   Widget build(BuildContext context) {
     final selectedDate = ref.watch(selectedDateProvider);
     final leftPane = ref.watch(leftPaneNotifierProvider);
-    final rightPane = ref.watch(rightPaneNotifierProvider);
+    final rightPane = ref.watch(rightPaneProvider);
     final int totalDays = endAt.difference(startAt).inDays;
     final double paddingWithoutPane = 20;
 
@@ -59,7 +61,7 @@ class _TimelisteScreenState extends ConsumerState<TimelineScreen> {
 
               ref
                   .read(selectedDateProvider.notifier)
-                  .state = DateInterval.today(day: selectedDate);
+                  .update(DateInterval.today(day: selectedDate));
             },
             tooltip: FlutterSliderTooltip(
               // custom: (value) {
@@ -86,26 +88,26 @@ class _TimelisteScreenState extends ConsumerState<TimelineScreen> {
   }
 }
 
-class _SelectedDateLabel extends StatelessWidget {
-  const _SelectedDateLabel({super.key, required this.date});
-  final DateTime date;
+// class _SelectedDateLabel extends StatelessWidget {
+//   const _SelectedDateLabel({super.key, required this.date});
+//   final DateTime date;
 
-  @override
-  Widget build(BuildContext context) {
-    final formatter = DateFormat("d MMMM y");
+//   @override
+//   Widget build(BuildContext context) {
+//     final formatter = DateFormat("d MMMM y");
 
-    return Container(
-      width: 100,
-      height: 30,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(2)),
-        // boxShadow: [BoxShadow(blurRadius: 20, offset: Offset(3, 3))],
-      ),
-      child: Text(formatter.format(date), style: TextStyle(fontSize: 16)),
-    );
-  }
-}
+//     return Container(
+//       width: 100,
+//       height: 30,
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.all(Radius.circular(2)),
+//         // boxShadow: [BoxShadow(blurRadius: 20, offset: Offset(3, 3))],
+//       ),
+//       child: Text(formatter.format(date), style: TextStyle(fontSize: 16)),
+//     );
+//   }
+// }
 
 class _SliderYearsLabel extends StatelessWidget {
   const _SliderYearsLabel({super.key});

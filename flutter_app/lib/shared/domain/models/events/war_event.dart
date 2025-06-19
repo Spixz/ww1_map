@@ -1,8 +1,9 @@
 // ignore: depend_on_referenced_packages
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mongo_dart/mongo_dart.dart';
+
 import 'package:ww1_map/shared/domain/enums/event_kind.dart';
-import 'package:ww1_map/shared/domain/mappers/dynamic_to_datetime.dart';
+import 'package:ww1_map/shared/domain/utils/dynamic_to_datetime.dart';
 import 'package:ww1_map/shared/domain/mappers/object_id_from_json.dart';
 
 import 'package:json_annotation/json_annotation.dart';

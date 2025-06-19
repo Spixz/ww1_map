@@ -6,9 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
+
 import 'package:ww1_map/features/left_pane/providers/map_controller_notifier.dart';
 import 'package:ww1_map/features/map/providers/move_map_on_selected_event_provider.dart';
-
 import 'package:ww1_map/features/map/providers/map_informations_notifier.dart';
 import 'package:ww1_map/features/map/view/widgets/events_markers_layer.dart';
 import 'package:ww1_map/shared/data/mappers/lat_lng_bounds_mapper.dart';
@@ -44,15 +44,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         options: MapOptions(
           initialCenter: LatLng(46.866667, 2.973333),
           initialZoom: 6,
-          onMapReady: () {
-            ref.read(mapControllerProvider.notifier).declareReady();
-            mapEventsSubscription = mapController.mapEventStream.listen((
-              event,
-            ) {
-              if (event is MapEventMoveEnd) _updateMapInformation();
-              if (event is MapEventScrollWheelZoom) _updateMapInformation();
-            });
-          },
+          onMapReady: _onMapReady,
         ),
         children: [
           TileLayer(
@@ -77,6 +69,16 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         ],
       ),
     );
+  }
+
+  void _onMapReady() {
+    final mapController = ref.watch(mapControllerProvider);
+
+    ref.read(mapControllerProvider.notifier).declareReady();
+    mapEventsSubscription = mapController.mapEventStream.listen((event) {
+      if (event is MapEventMoveEnd) _updateMapInformation();
+      if (event is MapEventScrollWheelZoom) _updateMapInformation();
+    });
   }
 
   void _updateMapInformation() {

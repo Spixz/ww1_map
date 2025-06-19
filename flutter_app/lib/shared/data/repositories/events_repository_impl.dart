@@ -126,6 +126,7 @@ class EventsRepositoryImpl extends EventsRepository {
     // print((await collection.aggregateToStream(pipeline.build()).toList()).length);
     final result =
         await collection.aggregateToStream(pipeline.build()).toList();
+
     return result.map(WarEvent.fromJsonBuilder).toList();
   }
 }

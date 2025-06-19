@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:ww1_map/shared/domain/models/events/gps_coordinates.dart';
 import 'package:ww1_map/shared/domain/models/events/war_event_coordinates.dart';
 
 part 'unit_movement_coordinates.g.dart';
