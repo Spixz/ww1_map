@@ -1,20 +1,20 @@
 import 'package:ww1_map/shared/domain/models/events/gps_coordinates.dart';
 
 class RectCoordinates {
-  RectCoordinates({required this.topLeft, required this.bottomRight});
+  RectCoordinates({required this.bottomLeft, required this.topRight});
 
   RectCoordinates.empty()
-    : topLeft = GpsCoordinates.empty(),
-      bottomRight = GpsCoordinates.empty();
+    : bottomLeft = GpsCoordinates.empty(),
+      topRight = GpsCoordinates.empty();
 
-  final GpsCoordinates topLeft;
-  final GpsCoordinates bottomRight;
+  final GpsCoordinates bottomLeft;
+  final GpsCoordinates topRight;
 
   bool contain(GpsCoordinates point) {
-    final minLat = bottomRight.latitude;
-    final maxLat = topLeft.latitude;
-    final minLng = topLeft.longitude;
-    final maxLng = bottomRight.longitude;
+    final minLat = bottomLeft.latitude;
+    final maxLat = topRight.latitude;
+    final minLng = bottomLeft.longitude;
+    final maxLng = topRight.longitude;
 
     return point.latitude >= minLat &&
         point.latitude <= maxLat &&
@@ -22,26 +22,6 @@ class RectCoordinates {
         point.longitude <= maxLng;
   }
 
-  List<List<double>> toMongoBox() {
-    final latitudes = [topLeft.latitude, bottomRight.latitude];
-    final longitudes = [topLeft.longitude, bottomRight.longitude];
-
-    final bottomLeft = GpsCoordinates(
-      latitude: latitudes.reduce((a, b) => a < b ? a : b),
-      longitude: longitudes.reduce((a, b) => a < b ? a : b),
-    );
-
-    final topRight = GpsCoordinates(
-      latitude: latitudes.reduce((a, b) => a > b ? a : b),
-      longitude: longitudes.reduce((a, b) => a > b ? a : b),
-    );
-
-    return [
-      [bottomLeft.longitude, bottomLeft.latitude],
-      [topRight.longitude, topRight.latitude],
-    ];
-  }
-
   @override
-  String toString() => "topLeft: $topLeft / bottomRight: $bottomRight";
+  String toString() => "bottomLeft: $bottomLeft / topRight: $topRight";
 }

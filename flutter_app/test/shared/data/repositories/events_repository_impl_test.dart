@@ -62,11 +62,11 @@ void main() {
     final repo = EventsRepositoryImpl(mongoDatabase: db);
     final result = await repo.getEvents(
       bounds: RectCoordinates(
-        topLeft: GpsCoordinates(
+        bottomLeft: GpsCoordinates(
           latitude: 50.16568536560905,
           longitude: -3.302049351782936,
         ),
-        bottomRight: GpsCoordinates(
+        topRight: GpsCoordinates(
           latitude: 43.68218312650164,
           longitude: 5.555377906005663,
         ),
@@ -75,57 +75,6 @@ void main() {
     );
     expect(result, isNotEmpty);
   });
-
-  // test('Test get events by regiment id', () async {
-  //   final db = await Db.create(dotenv.env['MONGO_URI']!);
-  //   await db.open();
-  //   expect(db, isA<Db>());
-
-  //   final repo = EventsRepositoryImpl(mongoDatabase: db);
-  //   final result = await repo.getEvents(
-  //     regimentId: ObjectId.fromHexString("68431760570a28785cf51fbc"),
-  //     // bounds: RectCoordinates(
-  //     //   topLeft: GpsCoordinates(
-  //     //     latitude: 50.16568536560905,
-  //     //     longitude: -3.302049351782936,
-  //     //   ),
-  //     //   bottomRight: GpsCoordinates(
-  //     //     latitude: 43.68218312650164,
-  //     //     longitude: 5.555377906005663,
-  //     //   ),
-  //     // ),
-  //     interval: DateInterval(start: DateTime(1913), end: DateTime(1915)),
-  //     startAt: 0,
-  //     limit: 15,
-  //   );
-  //   expect(result, isNotEmpty);
-  //   print(result);
-  // });
-  // test('Test get events by regiment id', () async {
-  //   final db = await Db.create(dotenv.env['MONGO_URI']!);
-  //   await db.open();
-  //   expect(db, isA<Db>());
-
-  //   final repo = EventsRepositoryImpl(mongoDatabase: db);
-  //   final result = await repo.getEvents(
-  //     regimentId: ObjectId.fromHexString("68431760570a28785cf51fbc"),
-  //     // bounds: RectCoordinates(
-  //     //   topLeft: GpsCoordinates(
-  //     //     latitude: 50.16568536560905,
-  //     //     longitude: -3.302049351782936,
-  //     //   ),
-  //     //   bottomRight: GpsCoordinates(
-  //     //     latitude: 43.68218312650164,
-  //     //     longitude: 5.555377906005663,
-  //     //   ),
-  //     // ),
-  //     interval: DateInterval(start: DateTime(1913), end: DateTime(1915)),
-  //     startAt: 0,
-  //     limit: 15,
-  //   );
-  //   expect(result, isNotEmpty);
-  //   print(result);
-  // });
 }
 
 void printEvents(List<WarEvent> events) {

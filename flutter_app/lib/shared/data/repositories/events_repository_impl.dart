@@ -1,6 +1,7 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
 import 'package:ww1_map/features/timeline/domain/models/date_interval.dart';
+import 'package:ww1_map/shared/data/mappers/rect_coordinates_to_mongobox.dart';
 import 'package:ww1_map/shared/domain/models/events/war_event.dart';
 import 'package:ww1_map/shared/domain/models/map/rect_coordinates.dart';
 import 'package:ww1_map/shared/domain/repositories/war_events_repository.dart';
