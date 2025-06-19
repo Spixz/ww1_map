@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'package:ww1_map/core/scroll_behavior.dart';
 import 'package:ww1_map/core/theme.dart';
@@ -18,7 +19,20 @@ void main() async {
   await dotenv.load(fileName: envFilepath);
 
   WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = WindowOptions(
+    size: Size(1200, 900),
+    center: true,
+    skipTaskbar: false,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   await EasyLocalization.ensureInitialized();
+
 
   runApp(
     EasyLocalization(

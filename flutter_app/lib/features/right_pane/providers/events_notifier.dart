@@ -42,14 +42,12 @@ class EventsNotifier extends AsyncNotifier<List<WarEvent>> {
         after: selectedDate.start,
         before: selectedDate.date.add(Duration(days: 100)),
         bounds: mapInformations.bounds,
-        offset: scrollPosition,
         limit: 15,
       );
     } else {
       result = await eventsRepository.getEvents(
         after: selectedDate.start,
         regimentId: selectedRegimentId,
-        offset: scrollPosition,
         limit: 15,
       );
     }
@@ -75,14 +73,14 @@ class EventsNotifier extends AsyncNotifier<List<WarEvent>> {
           bounds: mapInformations.bounds,
           after: selectedDate.start,
           before: selectedDate.date.add(Duration(days: 100)),
-          offset: scrollPosition,
+          offset: scrollPosition + 1,
           limit: 15,
         );
       } else {
         result = await eventsRepository.getEvents(
           regimentId: selectedRegimentId,
           after: selectedDate.start,
-          offset: scrollPosition,
+          offset: scrollPosition + 1,
           limit: 15,
         );
       }

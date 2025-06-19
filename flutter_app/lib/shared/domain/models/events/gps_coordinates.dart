@@ -4,10 +4,10 @@ part 'gps_coordinates.g.dart';
 
 @JsonSerializable()
 class GpsCoordinates {
-  final double latitude;
   final double longitude;
+  final double latitude;
 
-  GpsCoordinates({required this.latitude, required this.longitude});
+  GpsCoordinates({required this.longitude, required this.latitude});
 
   GpsCoordinates.empty() : latitude = 0, longitude = 0;
 

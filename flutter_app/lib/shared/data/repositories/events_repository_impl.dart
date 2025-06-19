@@ -56,7 +56,6 @@ class EventsRepositoryImpl extends EventsRepository {
         }),
       );
     }
-    //TODO : remove intervals form parameters
     if (interval != null) {
       pipeline
           .addStage(
@@ -104,9 +103,7 @@ class EventsRepositoryImpl extends EventsRepository {
       pipeline.addStage(
         Match({
           'allPoints.coordinates': {
-            r'$geoWithin': {
-              r'$box': [bounds.bottomRight.toList, bounds.topLeft.toList],
-            },
+            r'$geoWithin': {r'$box': bounds.toMongoBox()},
           },
         }),
       );
@@ -116,14 +113,15 @@ class EventsRepositoryImpl extends EventsRepository {
       );
       pipeline.addStage(ReplaceRoot(Field('doc')));
     }
+
+    pipeline.addStage(Sort({'start_date': 1}));
+
     if (offset != null && offset != 0) {
       pipeline.addStage(Skip(offset));
     }
     pipeline.addStage(Limit(limit));
-    pipeline.addStage(Sort({'start_date': 1}));
 
     // print(pipeline.build());
-    print("reposiotyEvents.getEvents() call");
     // print((await collection.aggregateToStream(pipeline.build()).toList()).length);
     final result =
         await collection.aggregateToStream(pipeline.build()).toList();

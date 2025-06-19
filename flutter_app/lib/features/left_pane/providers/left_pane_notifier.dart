@@ -9,7 +9,7 @@ final leftPaneNotifierProvider = NotifierProvider(
 class RegimentsPaneNotifier extends Notifier<PaneState> {
   @override
   PaneState build() =>
-      PaneState(width: 330, minWidth: 330, maxWidth: 700, enabled: true);
+      PaneState(width: 330, minWidth: 330, maxWidth: 700, enabled: false);
 
   void updateWidth(double width) {
     if (width <= state.maxWidth && width >= state.minWidth) {

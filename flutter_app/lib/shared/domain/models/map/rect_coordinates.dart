@@ -22,6 +22,26 @@ class RectCoordinates {
         point.longitude <= maxLng;
   }
 
+  List<List<double>> toMongoBox() {
+    final latitudes = [topLeft.latitude, bottomRight.latitude];
+    final longitudes = [topLeft.longitude, bottomRight.longitude];
+
+    final bottomLeft = GpsCoordinates(
+      latitude: latitudes.reduce((a, b) => a < b ? a : b),
+      longitude: longitudes.reduce((a, b) => a < b ? a : b),
+    );
+
+    final topRight = GpsCoordinates(
+      latitude: latitudes.reduce((a, b) => a > b ? a : b),
+      longitude: longitudes.reduce((a, b) => a > b ? a : b),
+    );
+
+    return [
+      [bottomLeft.longitude, bottomLeft.latitude],
+      [topRight.longitude, topRight.latitude],
+    ];
+  }
+
   @override
   String toString() => "topLeft: $topLeft / bottomRight: $bottomRight";
 }
