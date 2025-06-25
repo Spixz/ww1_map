@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:ww1_map/features/pdf_window/providers/pdf_window_notifier.dart';
 
 class WindowTopBar extends ConsumerWidget {
@@ -7,13 +9,13 @@ class WindowTopBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final windowState = ref.watch(pdfWindowNotifierProvider);
+    final windowState = ref.watch(pdfWindowProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          onPressed: () => ref.read(pdfWindowNotifierProvider.notifier).close(),
+          onPressed: () => ref.read(pdfWindowProvider.notifier).close(),
           icon: Icon(Icons.close, size: 18, color: Colors.black),
         ),
         Text(windowState.title),

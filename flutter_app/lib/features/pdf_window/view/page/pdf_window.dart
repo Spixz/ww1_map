@@ -25,7 +25,7 @@ class _PdfViewerScreenState extends ConsumerState<PdfWindowScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final windowState = ref.watch(pdfWindowNotifierProvider);
+    final windowState = ref.watch(pdfWindowProvider);
 
     if (!windowState.display) return Empty();
 

@@ -11,7 +11,7 @@ class PdfContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final windowState = ref.watch(pdfWindowNotifierProvider);
+    final windowState = ref.watch(pdfWindowProvider);
 
     return PdfViewer.uri(
       Uri.parse(windowState.fileUrl),

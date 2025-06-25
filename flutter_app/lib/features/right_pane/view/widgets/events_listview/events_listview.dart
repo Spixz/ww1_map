@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import 'package:ww1_map/common_widgets/centered_error.dart';
 import 'package:ww1_map/common_widgets/common_widgets_export.dart';
 import 'package:ww1_map/core/colors.dart';
 import 'package:ww1_map/features/map/providers/selected_event_provider.dart';

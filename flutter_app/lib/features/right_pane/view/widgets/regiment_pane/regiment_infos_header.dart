@@ -84,7 +84,7 @@ class _PdfButton extends ConsumerWidget {
       onTap: () {
         if (!pdfAvailaible) return;
         ref
-            .read(pdfWindowNotifierProvider.notifier)
+            .read(pdfWindowProvider.notifier)
             .openDocument(title: regiment.title, url: regiment.medias.pdf!);
       },
       child: Row(
