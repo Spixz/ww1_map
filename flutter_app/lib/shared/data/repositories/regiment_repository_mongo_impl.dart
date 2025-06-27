@@ -3,10 +3,10 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:ww1_map/shared/domain/models/regiments/regiment.dart';
 import 'package:ww1_map/shared/domain/repositories/regiment_repository.dart';
 
-class RegimentRepositoryImpl implements RegimentRepository {
+class RegimentRepositoryMongoImpl implements RegimentRepository {
   final Db _mongoDatabase;
 
-  const RegimentRepositoryImpl({required Db mongoDatabase})
+  const RegimentRepositoryMongoImpl({required Db mongoDatabase})
     : _mongoDatabase = mongoDatabase;
 
   @override

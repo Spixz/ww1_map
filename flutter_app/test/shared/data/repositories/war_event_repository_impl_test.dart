@@ -1,7 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:ww1_map/shared/data/repositories/events_repository_impl.dart';
+import 'package:ww1_map/shared/data/repositories/events_repository_mongo_impl.dart';
 import 'package:ww1_map/shared/domain/models/events/military_event.dart';
 import 'package:ww1_map/shared/domain/models/events/political_event.dart';
 import 'package:ww1_map/shared/domain/models/events/unit_movement_event.dart';
@@ -16,7 +16,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
     final militaryEvent = await repo.getEventById(
       ObjectId.fromHexString("6846a945a71a3e29f15d8793"),
     );
@@ -42,7 +42,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
 
     final militaryEvent = await repo.getEventById(
       ObjectId.fromHexString("6846a945a71a3e29f15d8793"),
@@ -56,7 +56,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
 
     final unitMovementEvent = await repo.getEventById(
       ObjectId.fromHexString("6846aa01a71a3e29f15d87b1"),

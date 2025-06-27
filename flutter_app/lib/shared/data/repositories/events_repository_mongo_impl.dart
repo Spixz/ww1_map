@@ -6,10 +6,10 @@ import 'package:ww1_map/shared/domain/models/events/war_event.dart';
 import 'package:ww1_map/shared/domain/models/map/rect_coordinates.dart';
 import 'package:ww1_map/shared/domain/repositories/war_events_repository.dart';
 
-class EventsRepositoryImpl extends EventsRepository {
+class EventsRepositoryMongoImpl extends EventsRepository {
   final Db _mongoDatabase;
 
-  EventsRepositoryImpl({required Db mongoDatabase})
+  EventsRepositoryMongoImpl({required Db mongoDatabase})
     : _mongoDatabase = mongoDatabase;
 
   @override

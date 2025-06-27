@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
 import 'package:ww1_map/features/timeline/domain/models/date_interval.dart';
-import 'package:ww1_map/shared/data/repositories/events_repository_impl.dart';
+import 'package:ww1_map/shared/data/repositories/events_repository_mongo_impl.dart';
 import 'package:ww1_map/shared/domain/models/events/gps_coordinates.dart';
 import 'package:ww1_map/shared/domain/models/events/war_event.dart';
 import 'package:ww1_map/shared/domain/models/map/rect_coordinates.dart';
@@ -18,7 +18,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
     final result = await repo.getEventById(
       ObjectId.fromHexString("6846a945a71a3e29f15d8793"),
     );
@@ -31,7 +31,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
     final result = await repo.getEvents(
       regimentId: ObjectId.fromHexString("68431760570a28785cf51fbc"),
       limit: 15,
@@ -44,7 +44,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
 
     var result = await repo.getEvents(
       regimentId: ObjectId.fromHexString("68431760570a28785cf51fbc"),
@@ -59,7 +59,7 @@ void main() {
     await db.open();
     expect(db, isA<Db>());
 
-    final repo = EventsRepositoryImpl(mongoDatabase: db);
+    final repo = EventsRepositoryMongoImpl(mongoDatabase: db);
     final result = await repo.getEvents(
       bounds: RectCoordinates(
         bottomLeft: GpsCoordinates(
