@@ -1,5 +1,11 @@
 # WW1 Map - [AI in Action](https://ai-in-action.devpost.com/) ✌️
 
+<p align="center">
+  <a href="https://github.com/Spixz/ww1_map/blob/main/doc/screenshot.png" target="_blank">
+    <img src="doc/screenshot.png" width="100%" />
+  </a>
+</p>
+<br>
 
 **WW1 Map** is an interactive map that visualizes the movements and actions of French infantry regiments during World War I.
 
